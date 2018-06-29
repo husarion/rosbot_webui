@@ -68,7 +68,10 @@ You can use it:
 
 `roslaunch exploration_demo demo.launch`
 
-Go to the web browser and type IP addrees of your ROSbot in adress bar. You will be able to control ROSbot.
+Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` wth name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
+
+If you do not have Husarnet configured, you can use local IP of yout device.
+
 
 # Modifications
 
