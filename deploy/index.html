@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROSbot_webUI</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anonymous+Pro:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+</head>
+
+<body>
+    <section class="d-flex flex-column justify-content-between" id="rosbot-panel">
+        <div id="rosbot-perception">
+            <div class="d-flex flex-fill justify-content-between swiper-container" id="swiper-cont">
+                <div class="swiper-wrapper">
+                    <div class="d-flex flex-column justify-content-between align-items-center align-content-center swiper-slide" id="rc-slide"><img id="video" class="rosbot-image">
+                        <div class="d-flex justify-content-center align-items-center controls-container" id="manual-controls">
+                            <div id="joystick"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column justify-content-between align-items-center align-content-center swiper-slide" id="auto-slide"><input type="range" id="map-zoom" min="1" max="100" value="10">
+                        <div id="map" class="rosbot-image"></div>
+                        <div class="d-flex justify-content-center align-items-center controls-container" id="autonomous-controls">
+                            <div class="container d-flex flex-column align-items-start" id="control-panel">
+                                <div class="row" id="rosbot-controls">
+                                    <div class="col d-flex justify-content-center"><button class="btn btn-primary" type="button" id="explore-button">EXPLORE</button></div>
+                                    <div class="col d-flex justify-content-center"><button class="btn btn-primary" type="button" id="stop-button">STOP</button></div>
+                                    <div class="col d-flex justify-content-center"><button class="btn btn-primary" type="button" id="clear-button">CLEAR MAP</button></div>
+                                </div>
+                                <div class="row" id="current-task-row">
+                                    <div class="col d-flex">
+                                        <p id="current-task-label" class="rosbot-label">Current task</p>
+                                    </div>
+                                    <div class="col d-flex justify-content-end">
+                                        <p id="current-task" class="rosbot-value"></p>
+                                    </div>
+                                </div>
+                                <div class="row" id="task-status-row">
+                                    <div class="col">
+                                        <p class="d-flex rosbot-label" id="task-status-label">Task status</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="d-flex justify-content-end rosbot-value" id="task-status"></p>
+                                    </div>
+                                </div>
+                                <div class="row" id="exploration-time-row">
+                                    <div class="col">
+                                        <p class="d-flex rosbot-label" id="task-status-label">Exploration time</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="d-flex justify-content-end rosbot-value" id="exploration-time"></p>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-start" id="position-label">
+                                    <div class="col align-self-stretch ml-auto">
+                                        <p class="text-nowrap text-left" id="rosbot-position-label">Rosbot position:</p>
+                                    </div>
+                                </div>
+                                <div class="row" id="rosbot-position">
+                                    <div class="col">
+                                        <p class="text-left rosbot-pos" id="x-pos">X</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-left rosbot-pos" id="y-pos">Y</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-left rosbot-pos" id="t-pos">Theta</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-row align-items-center" id="rosbot-status">
+            <div id="battery-container" class="progress">
+                <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </section>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<launch>
+    <include file="$(find astra_launch)/launch/astra.launch"></include>
+
+    <include file="$(find rplidar_ros)/launch/rplidar.launch"></include>
+
+    <node pkg="rosbot_webui" type="serial_bridge.sh" name="bridge" output="screen"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="ROSbot2_laser" args="0 0 0 3.14 0 0 base_link laser 10" />
+
+    <node pkg="rosbot_webui" type="pose_to_tf_transform" name="pose_to_tf_transform" required="true"/>
+
+    <node pkg="rosbot_webui" type="tf_to_pose" name="tf_to_pose" required="true"/>
+
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+        <param name="recovery_behavior_enabled" value="true"/>
+        <param name="controller_frequency" value="10.0"/>
+        <rosparam file="$(find rosbot_webui)/conf/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find rosbot_webui)/conf/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find rosbot_webui)/conf/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find rosbot_webui)/conf/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find rosbot_webui)/conf/trajectory_planner.yaml" command="load" />
+    </node>
+
+    <node pkg="rosbot_webui" type="gmapping_supervisor.py" name="gmapping_supervisor" output="screen"/>
+
+    <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="screen"/>
+
+    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
+        <param name="frequency" type="double" value="1.0"/>
+        <param name="goal_aliasing" type="double" value="0.1"/>
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosbot_webui)/conf/exploration.yaml" command="load" />
+    </node>
+
+    <node pkg="web_video_server" type="web_video_server" name="webvideo4">
+        <param name="address" value="::" />
+        <param name="port" value="8082" />
+    </node>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+        <arg name="port" value="9090"/>
+    </include>
+
+</launch>

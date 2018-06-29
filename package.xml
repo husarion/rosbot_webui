@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rosbot_webui</name>
+  <version>1.0.0</version>
+  <description>ROSbot web User Interface</description>
+
+  <maintainer email="lukasz.mitka@husarion.com">Łukasz Mitka</maintainer>
+
+  <license>TODO</license>
+
+  <author email="hubert.zwiercan@husarion.com">Hubert Zwiercan</author>
+  <author email="lukasz.mitka@husarion.com">Łukasz Mitka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+
+  <export>
+  </export>
+</package>
