@@ -249,7 +249,7 @@ body {
 #map-zoom {
   position:absolute;
   width:99%;
-  height:20px;
+  height:10px;
   top:0px;
   margin:0px;
   padding:0px;
@@ -259,7 +259,7 @@ body {
   #map-zoom {
     position:absolute;
     width:99%;
-    height:20px;
+    height:10px;
     top:2px;
     margin:0px;
   }
