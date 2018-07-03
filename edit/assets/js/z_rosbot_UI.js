@@ -40,12 +40,27 @@ var bool_reset;
 var pose_subscriber;
 var battery_subscriber;
 
+var sensorSubscriberFL;
+var sensorSubscriberFR;
+var sensorSubscriberRL;
+var sensorSubscriberRR;
+
 var timerInstance;
 
 var mySwiper;
 
+var sensorLabelFL;
+var sensorLabelFR;
+var sensorLabelRL;
+var sensorLabelRR;
+
 window.onload = function () {
 	console.log("onLoad triggered");
+
+	sensorLabelFL = document.getElementById('sensor-fl');
+	sensorLabelFR = document.getElementById('sensor-fr');
+	sensorLabelRL = document.getElementById('sensor-rl');
+	sensorLabelRR = document.getElementById('sensor-rr');
 
 	dbg_str = new ROSLIB.Message({
 		data: "status"
@@ -106,6 +121,27 @@ window.onload = function () {
 		ros: ros,
 		name: '/rosbot_on_map_pose',
 		messageType: 'geometry_msgs/PoseStamped'
+	});
+
+	sensorSubscriberFL = new ROSLIB.Topic({
+		ros: ros,
+		name: '/range/fl',
+		messageType: 'sensor_msgs/Range'
+	});
+	sensorSubscriberFR = new ROSLIB.Topic({
+		ros: ros,
+		name: '/range/fr',
+		messageType: 'sensor_msgs/Range'
+	});
+	sensorSubscriberRL = new ROSLIB.Topic({
+		ros: ros,
+		name: '/range/rl',
+		messageType: 'sensor_msgs/Range'
+	});
+	sensorSubscriberRR = new ROSLIB.Topic({
+		ros: ros,
+		name: '/range/rr',
+		messageType: 'sensor_msgs/Range'
 	});
 
 	battery_subscriber = new ROSLIB.Topic({
@@ -184,6 +220,39 @@ window.onload = function () {
 		setMapScale();
 		resizeMap(mapScale);
 	});
+
+	sensorSubscriberFL.subscribe(function (range) {
+		if (range.range > range.max_range || range.range < range.min_range) {
+			document.getElementById("sensor-label-fl").innerHTML = "Out of range";
+		} else {
+			document.getElementById("sensor-label-fl").innerHTML = range.range.toFixed(2) + "m";
+		}
+	});
+
+	sensorSubscriberFR.subscribe(function (range) {
+		if (range.range > range.max_range || range.range < range.min_range) {
+			document.getElementById("sensor-label-fr").innerHTML = "Out of range";
+		} else {
+			document.getElementById("sensor-label-fr").innerHTML = range.range.toFixed(2) + "m";
+		}
+	});
+
+	sensorSubscriberRL.subscribe(function (range) {
+		if (range.range > range.max_range || range.range < range.min_range) {
+			document.getElementById("sensor-label-rl").innerHTML = "Out of range";
+		} else {
+			document.getElementById("sensor-label-rl").innerHTML = range.range.toFixed(2) + "m";
+		}
+	});
+
+	sensorSubscriberRR.subscribe(function (range) {
+		if (range.range > range.max_range || range.range < range.min_range) {
+			document.getElementById("sensor-label-rr").innerHTML = "Out of range";
+		} else {
+			document.getElementById("sensor-label-rr").innerHTML = range.range.toFixed(2) + "m";
+		}
+	});
+
 
 	battery_subscriber.subscribe(function (battery) {
 		setBatteryPercentage(100 * (battery.voltage - min_voltage) / (max_voltage - min_voltage));
@@ -294,6 +363,10 @@ function setView() {
 	}
 	joyPosX = (videoRect.right - videoRect.left - joyWidth) / 2;
 	createJoystick(0, 0, joyWidth, joyHeight);
+
+	sensorLabelRL.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
+	sensorLabelRR.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
+
 }
 
 function setBatteryPercentage(percentage) {
@@ -329,7 +402,7 @@ function moveAction(linear, angular) {
 
 function initMap() {
 	var logo = document.getElementById('video');
-	videoRect = logo.getBoundingClientRect(); 
+	videoRect = logo.getBoundingClientRect();
 	viewer = new ROS2D.Viewer({
 		divID: 'map',
 		width: videoRect.right - videoRect.left,
