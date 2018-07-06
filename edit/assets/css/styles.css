@@ -32,11 +32,13 @@ body {
 .rosbot-image {
   border-radius:2px;
   padding:0px;
-  margin:2px;
+  margin:0px;
   object-fit:contain;
   max-height:100%;
   width:99%;
   background-color:rgba(0, 0, 0, 0);
+  min-width:320px;
+  min-height:240px;
 }
 
 #joystick {
@@ -46,7 +48,7 @@ body {
 .controls-container {
   background-color:rgba(13,15,18,0.29);
   width:99%;
-  height:100px;
+  height:125px;
   border-radius:5px;
   padding:2px;
   position:absolute;
@@ -56,8 +58,8 @@ body {
 @media (min-height: 768px) {
   .controls-container {
     width:99%;
-    max-width:450px;
-    height:200px;
+    max-width:650px;
+    height:250px;
     border-radius:5px;
     margin:auto;
   }
@@ -66,8 +68,8 @@ body {
 @media (max-aspect-ratio: 6/8) {
   .controls-container {
     width:99%;
-    max-width:450px;
-    height:200px;
+    max-width:650px;
+    height:250px;
     border-radius:5px;
     position:relative;
     margin:auto;
@@ -77,8 +79,8 @@ body {
 @media (min-height: 860px) and (min-aspect-ratio: 6/8) {
   .controls-container {
     width:99%;
-    max-width:450px;
-    height:200px;
+    max-width:650px;
+    height:250px;
     border-radius:5px;
     position:relative;
     margin:auto;
@@ -142,90 +144,59 @@ body {
 #control-panel .row {
   margin-left:0px;
   margin-right:0px;
-  width:100%;
-}
-
-#rosbot-position {
-  width:100%;
-  color:rgba(253,254,255,1);
-}
-
-#position-label {
-  width:100%;
-  margin-top:0px;
 }
 
 #rosbot-controls {
   width:100%;
   margin:0px;
   padding:0px;
-  color:rgb(255,255,255);
   min-width:280px;
 }
 
-.rosbot-pos {
-  margin:0px;
-  padding:0px 0px 0px 3px;
-}
-
-#rosbot-position .col:not(:last-child) {
-  background-color:rgba(0, 0, 0, 0);
-  border-right:1px solid rgba(255, 255, 255, 1);
-}
-
-.col {
-  margin:0px;
-  padding:0px 0px 0px 3px;
-}
-
-#rosbot-controls {
-  width:100%;
-  margin:0px;
-  padding:0px;
-}
-
 .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-repeat:no-repeat;
-  background-size:12px 12px;
-  background-position:5px 50%;
-  padding:0px 10px 0px 30px;
-  margin:0px;
-  border-color:rgba(255, 255, 255, 1);
+  /*background-repeat:no-repeat;*/
+  /*background-size:12px 12px;*/
+  /*background-position:5px 50%;*/
+  padding:0;
+  margin-top:2px;
+  margin-bottom:2px;
+  border-color:rgba(255, 255, 255, 0);
   box-shadow:none;
   color:rgb(255, 255, 255);
   border-radius:10px;
-  text-align:left;
+  text-align:center;
   font-size:10px;
 }
 
 @media (min-height: 768px) {
   .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
     font-size:15px;
-    background-size:20px 20px;
+    /*background-size:20px 20px;*/
   }
 }
 
 #stop-button, #stop-button:active, #stop-button:focus, #stop-button:hover {
-  background-image:url("../../assets/img/stop_button.png");
-  background-color:rgba(0, 0, 0, 0.1);
+  /*background-image:url("../../assets/img/stop_button.png");*/
+  background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
+  font-family:Lato;
+  border:0px solid rgba(255, 255, 255, 0);
 }
 
 #clear-button, #clear-button:active, #clear-button:focus, #clear-button:hover {
   background-image:url("../../assets/img/broom.png");
-  background-color:rgba(0, 0, 0, 0.1);
+  background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
+  font-family:Lato;
+  border:0px solid rgba(255, 255, 255, 0);
 }
 
 #explore-button, #explore-button:active, #explore-button:focus, #explore-button:hover {
-  background-image:url("../../assets/img/explore_button.png");
-  background-color:rgba(0,0,0,0.1);
+  /*background-image:url("../../assets/img/explore_button.png");*/
+  background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
-}
-
-#rosbot-position-label {
-  margin:0px;
-  color:rgb(203,255,252);
+  font-family:Lato;
+  border:0px solid rgba(255, 255, 255, 0);
 }
 
 #current-task-row {
@@ -234,16 +205,6 @@ body {
 
 #dynamic {
   height:10px;
-}
-
-.rosbot-label {
-  color:rgb(203, 255, 252);
-  margin:0;
-}
-
-.rosbot-value {
-  color:rgba(255, 255, 255, 1);
-  margin:0px;
 }
 
 #map-zoom {
@@ -265,16 +226,6 @@ body {
   }
 }
 
-@media (min-height: 768px) {
-  #rosbot-position .col {
-    font-size:15px;
-  }
-}
-
-#task-status-row {
-  border-bottom:1px solid rgba(255, 255, 255, 1);
-}
-
 .btn-primary:disabled, .btn-primary:disabled, .show > .btn-primary.dropdown-toggle {
   color:#bbb;
   background-color:rgba(255, 255, 255, 0);
@@ -288,20 +239,24 @@ body {
 }
 
 .sensor-label {
-  margin:3px;
+  margin:0px;
   background-color:rgba(0, 0, 0, 0.5);
   padding:3px;
   color:rgba(205, 205, 205, 1);
+  display:inline-block;
+  position:absolute;
 }
 
 #sensor-fl {
-  position:absolute;
+  position:relative;
   left:3px;
+  top:3px;
 }
 
 #sensor-fr {
-  position:absolute;
+  position:relative;
   right:3px;
+  top:3px;
 }
 
 #sensor-rl {
@@ -312,5 +267,157 @@ body {
 #sensor-rr {
   position:absolute;
   right:3px;
+}
+
+#autonomous-statuses {
+  font-size:12px;
+  margin:auto;
+}
+
+.rosbot-pos {
+  width:33%;
+  display:flex;
+  justify-content:space-between;
+  padding:0px;
+}
+
+#rosbot-position .col:not(:last-child) {
+  background-color:rgba(0, 0, 0, 0);
+  border-right:1px solid rgba(255, 255, 255, 1);
+}
+
+@media screen and (orientation: landscape) and (min-height: 768px) {
+  #autonomous-statuses {
+    font-size:15px;
+  }
+}
+
+.value-container {
+  width:100%;
+  margin:0px;
+  padding:0px;
+  display:flex;
+  justify-content:space-between;
+}
+
+@media (min-width: 992px) {
+  .value-container {
+    padding:0 20px;
+  }
+}
+
+.value-label {
+  text-align:left;
+  margin:0px;
+  white-space:nowrap;
+  color:rgba(150, 200, 255, 1);
+}
+
+.actual-value {
+  text-align:right;
+  margin:0px;
+  white-space:nowrap;
+  color:rgba(255, 255, 255, 1);
+}
+
+.position-container {
+  width:100%;
+  margin:0;
+  padding:0;
+  display:flex;
+  justify-content:space-between;
+}
+
+@media (min-width: 992px) {
+  .position-container {
+    padding:0 20px;
+  }
+}
+
+.position-coord-value {
+  width:33%;
+  display:flex;
+  justify-content:left;
+  padding:0px;
+  margin:0px;
+  white-space:nowrap;
+  min-width:100px;
+}
+
+.position-label {
+  -ms-flex:0 0 100%;
+  flex:0 0 100%;
+  max-width:100%;
+  padding:0px;
+  margin:0px;
+}
+
+@media (min-width: 576px) {
+  .position-label {
+    -ms-flex:0 0 35%;
+    flex:0 0 35%;
+    padding:0px;
+    margin:0px;
+  }
+}
+
+#autonomous-buttons {
+  margin:auto;
+  min-width:70px;
+}
+
+#map {
+  background-repeat:no-repeat;
+  background-size:100%;
+  background-position:center;
+}
+
+#video {
+  /*background-image:url("video_dumy.png");*/
+  /*background-repeat:repeat;*/
+  /*background-size:100%;*/
+  /*background-position:center;*/
+}
+
+#video-container {
+  margin:auto;
+  /*background-color:rgba(127,127,127,0.5);*/
+  position:relative;
+}
+
+#sensor-label-fl {
+  left:0px;
+  top:0px;
+}
+
+#sensor-label-fr {
+  right:0px;
+  top:0px;
+}
+
+#sensor-label-rl {
+  left:0px;
+  bottom:0px;
+}
+
+#sensor-label-rr {
+  right:0px;
+  bottom:0px;
+}
+
+.background-text {
+  margin:auto;
+  font-size:100px;
+  font-family:Lato;
+}
+
+.background-text-container {
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  display:flex;
+  align-items:center;
 }
 

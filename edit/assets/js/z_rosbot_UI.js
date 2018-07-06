@@ -49,18 +49,18 @@ var timerInstance;
 
 var mySwiper;
 
-var sensorLabelFL;
-var sensorLabelFR;
-var sensorLabelRL;
-var sensorLabelRR;
+// var sensorLabelFL;
+// var sensorLabelFR;
+// var sensorLabelRL;
+// var sensorLabelRR;
 
 window.onload = function () {
 	console.log("onLoad triggered");
 
-	sensorLabelFL = document.getElementById('sensor-fl');
-	sensorLabelFR = document.getElementById('sensor-fr');
-	sensorLabelRL = document.getElementById('sensor-rl');
-	sensorLabelRR = document.getElementById('sensor-rr');
+	// sensorLabelFL = document.getElementById('sensor-fl');
+	// sensorLabelFR = document.getElementById('sensor-fr');
+	// sensorLabelRL = document.getElementById('sensor-rl');
+	// sensorLabelRR = document.getElementById('sensor-rr');
 
 	dbg_str = new ROSLIB.Message({
 		data: "status"
@@ -366,7 +366,6 @@ function setView() {
 
 	sensorLabelRL.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
 	sensorLabelRR.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
-
 }
 
 function setBatteryPercentage(percentage) {
