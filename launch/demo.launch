@@ -31,7 +31,7 @@
         <rosparam ns="explore_costmap" subst_value="true" file="$(find rosbot_webui)/conf/exploration.yaml" command="load" />
     </node>
 
-    <!--<node pkg="web_video_server" type="web_video_server" name="webvideo4">
+    <node pkg="web_video_server" type="web_video_server" name="webvideo4">
         <param name="address" value="::" />
         <param name="port" value="8082" />
     </node>
@@ -40,5 +40,4 @@
         <arg name="port" value="9090"/>
     </include>
 
-    -->
 </launch>

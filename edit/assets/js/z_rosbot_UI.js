@@ -172,8 +172,7 @@ window.onload = function () {
 
 	videoContainer = document.getElementById('video');
 	videoContainer.onload = function () {
-		initMap();
-		setView();
+
 	};
 	document.getElementById('video').src = "http://" + location.hostname + ":8082/stream?topic=/camera/rgb/image_raw&type=mjpeg&quality=50"
 
@@ -206,19 +205,18 @@ window.onload = function () {
 	pose_subscriber.subscribe(function (pose) {
 
 		if (document.getElementById("x-pos") !== undefined) {
-			document.getElementById("x-pos").innerHTML = "X = " + pose.pose.position.x.toFixed(2);
+			document.getElementById("x-pos").innerHTML = pose.pose.position.x.toFixed(2);
 		}
 		if (document.getElementById("y-pos") !== undefined) {
-			document.getElementById("y-pos").innerHTML = "Y = " + pose.pose.position.y.toFixed(2);
+			document.getElementById("y-pos").innerHTML = pose.pose.position.y.toFixed(2);
 		}
 		var quaternion = new THREE.Quaternion(pose.pose.orientation.x, pose.pose.orientation.y, pose.pose.orientation.z, pose.pose.orientation.w);
 		var rotation = new THREE.Euler().setFromQuaternion(quaternion, "XYZ");
 		theta_deg = 57.2957795 * rotation.z;
-		document.getElementById("t-pos").innerHTML = "Theta = " + theta_deg.toFixed(1) + "°";
+		document.getElementById("t-pos").innerHTML = theta_deg.toFixed(1) + "°";
 		mapShiftX = pose.pose.position.x;
 		mapShiftY = pose.pose.position.y;
-		setMapScale();
-		resizeMap(mapScale);
+		setMapScale(mapScale);
 	});
 
 	sensorSubscriberFL.subscribe(function (range) {
@@ -280,7 +278,9 @@ window.onload = function () {
 		clearMap();
 	});
 
+	initMap();
 	disableStopButton();
+	setView();
 };
 
 function disableStopButton() {
@@ -325,7 +325,7 @@ function createJoystick(x, y, w, h) {
 
 	var options = {
 		zone: joystickContainer,
-		position: { left: 0 + 'px', top: 0 + 'px' },
+		position: { left: 150 + 'px', top: 150 + 'px' },
 		mode: 'static',
 		size: joysticksize,
 		color: '#222222',
@@ -364,8 +364,8 @@ function setView() {
 	joyPosX = (videoRect.right - videoRect.left - joyWidth) / 2;
 	createJoystick(0, 0, joyWidth, joyHeight);
 
-	sensorLabelRL.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
-	sensorLabelRR.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
+	//sensorLabelRL.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
+	//sensorLabelRR.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
 }
 
 function setBatteryPercentage(percentage) {
@@ -400,21 +400,19 @@ function moveAction(linear, angular) {
 }
 
 function initMap() {
-	var logo = document.getElementById('video');
-	videoRect = logo.getBoundingClientRect();
+	var logo = document.getElementById('auto-slide');
+	slideRect = logo.getBoundingClientRect();
+
 	viewer = new ROS2D.Viewer({
 		divID: 'map',
-		width: videoRect.right - videoRect.left,
-		height: videoRect.bottom - videoRect.top,
+		width: slideRect.right - slideRect.left,
+		height: slideRect.bottom - slideRect.top,
 		background: "#7E7E7E"
 	});
 
-	document.getElementById("map").style.width = "" + videoRect.right - videoRect.left + "px";
-	document.getElementById("map").style.height = "" + videoRect.bottom - videoRect.top + "px";
+	document.getElementById("map").style.width = "" + slideRect.right - slideRect.left + "px";
+	document.getElementById("map").style.height = "" + slideRect.bottom - slideRect.top + "px";
 
-	var width_scale = 0;
-	var height_scale = 0;
-	var map_scale = 0;
 
 	gridClient = new NAV2D.OccupancyGridClientNav({
 		ros: ros,
@@ -423,20 +421,28 @@ function initMap() {
 		serverName: '/move_base',
 		continuous: true
 	});
+	redraw_map();
 }
 
 var resize_tout;
 
 function redraw_map() {
+	var map_rect = document.getElementById('auto-slide');
+	mapRect = map_rect.getBoundingClientRect();
+
 	var elem = document.getElementsByTagName('CANVAS');
 	if (elem !== undefined) {
 		if (elem.length > 0) {
-			elem[0].style.width = "" + videoRect.right - videoRect.left + "px";
-			elem[0].style.height = "" + videoRect.bottom - videoRect.top + "px";
+			elem[0].style.width = "" + mapRect.right - mapRect.left + "px";
+			elem[0].style.height = "" + mapRect.bottom - mapRect.top + "px";
+			//elem[0].setAttribute("width", mapRect.right - mapRect.left + "px");
+			//elem[0].setAttribute("height", mapRect.bottom - mapRect.top + "px");
 		}
 	}
-	document.getElementById("map").style.width = "" + videoRect.right - videoRect.left + "px";
-	document.getElementById("map").style.height = "" + videoRect.bottom - videoRect.top + "px";
+	document.getElementById("map").style.width = "" + mapRect.right - mapRect.left + "px";
+	document.getElementById("map").style.height = "" + mapRect.bottom - mapRect.top + "px";
+	//document.getElementById("map").setAttribute("width", mapRect.right - mapRect.left + "px");
+	//document.getElementById("map").setAttribute("height", mapRect.bottom - mapRect.top + "px");
 
 }
 
