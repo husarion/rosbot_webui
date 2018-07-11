@@ -38,6 +38,7 @@ var reset_publisher;
 var clear_publisher;
 var bool_reset;
 var pose_subscriber;
+var rpy_subscriber;
 var battery_subscriber;
 
 var sensorSubscriberFL;
@@ -122,6 +123,12 @@ window.onload = function () {
 		name: '/rosbot_on_map_pose',
 		messageType: 'geometry_msgs/PoseStamped'
 	});
+
+	rpy_subscriber = new ROSLIB.Topic({
+		ros: ros,
+		name: '/rpy',
+		messageType: 'geometry_msgs/Vector3'
+	})
 
 	sensorSubscriberFL = new ROSLIB.Topic({
 		ros: ros,
@@ -219,7 +226,21 @@ window.onload = function () {
 		setMapScale(mapScale);
 	});
 
+	rpy_subscriber.subscribe(function (rpy) {
+
+		if (document.getElementById("roll") !== undefined) {
+			document.getElementById("roll").innerHTML = rpy.x.toFixed(2) + "°";
+		}
+		if (document.getElementById("pitch") !== undefined) {
+			document.getElementById("pitch").innerHTML = rpy.y.toFixed(2) + "°";
+		}
+		if (document.getElementById("yaw") !== undefined) {
+			document.getElementById("yaw").innerHTML = rpy.z.toFixed(2) + "°";
+		}
+	});
+
 	sensorSubscriberFL.subscribe(function (range) {
+		console.log("FL sensor received")
 		if (range.range > range.max_range || range.range < range.min_range) {
 			document.getElementById("sensor-label-fl").innerHTML = "Out of range";
 		} else {
