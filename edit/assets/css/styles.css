@@ -123,18 +123,17 @@ body {
 #battery-container {
   height:19px;
   /*z-index:2;*/
-  /*background-image:url("../../assets/img/bateria.png");*/
   background-size:100% 100%;
   background-repeat:no-repeat;
   background-position:center;
-  /*padding-right:3px;*/
   position:relative;
+  margin-top:2px;
+  margin-bottom:2px;
 }
 
 @media (min-height: 768px) and (min-aspect-ratio: 6/8) {
   #battery-container {
     height:28px;
-    padding-right:5px;
   }
 }
 
@@ -186,7 +185,6 @@ body {
 }
 
 #stop-button, #stop-button:active, #stop-button:focus, #stop-button:hover {
-  /*background-image:url("../../assets/img/stop_button.png");*/
   background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
   font-family:Lato;
@@ -194,7 +192,6 @@ body {
 }
 
 #clear-button, #clear-button:active, #clear-button:focus, #clear-button:hover {
-  background-image:url("../../assets/img/broom.png");
   background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
   font-family:Lato;
@@ -202,7 +199,6 @@ body {
 }
 
 #explore-button, #explore-button:active, #explore-button:focus, #explore-button:hover {
-  /*background-image:url("../../assets/img/explore_button.png");*/
   background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
   font-family:Lato;
@@ -215,6 +211,10 @@ body {
 
 #dynamic {
   height:100%;
+  width:100%;
+  margin-right:2px;
+  border-radius:3px;
+  background-color:rgb(200, 16, 46);
 }
 
 #map-zoom {
@@ -309,15 +309,15 @@ body {
 .value-label {
   text-align:left;
   margin:0px;
-  margin-left:10px;
+  padding:0px;
   white-space:nowrap;
-  color:rgba(150, 200, 255, 1);
+  color:rgba(200, 16, 46, 1);
 }
 
 .actual-value {
-  text-align:right;
+  text-align:left;
   margin:0px;
-  margin-right:10px;
+  padding:0px;
   white-space:nowrap;
   color:rgba(255, 255, 255, 1);
 }
@@ -367,6 +367,7 @@ body {
 #autonomous-buttons {
   margin:auto;
   min-width:70px;
+  margin-left:2px;
 }
 
 #map {
@@ -454,13 +455,16 @@ body {
 }
 
 .progress {
-  width:67px;
+  width:100%;
   height:19px;
+  /*padding-right:2px;*/
+  background-color:rgba(0, 0, 0, 0);
+  background-image:url("../../assets/img/battery_w_full.png");
+  background-size:100% 100%;
 }
 
 @media (min-height: 768px) and (min-aspect-ratio: 6/8) {
   .progress {
-    width:108px;
     height:28px;
   }
 }
@@ -496,5 +500,30 @@ body {
 .joystick-caption {
   z-index:1;
   background-color:rgba(255, 255, 255, 0.25);
+}
+
+.value-col-label {
+  -ms-flex:0 0 35%;
+  flex:0 0 35%;
+  padding:0px;
+  margin:0px;
+}
+
+.battery-label {
+  width:100%;
+  height:100%;
+  font-size:10px;
+  font-family:Lato;
+  position:absolute;
+  line-height:18px;
+  left:0;
+  color:rgb(255, 255, 255);
+}
+
+@media (min-height: 768px) and (min-aspect-ratio: 6/8) {
+  .battery-label {
+    font-size:15px;
+    line-height:28px;
+  }
 }
 

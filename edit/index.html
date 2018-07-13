@@ -29,30 +29,31 @@
                         </div>
                         <div class="joystick-container">
                             <div id="joystick"></div>
-                        </div><span class="joystick-caption">Drag the joystick to move the ROSbot</span></div>
+                        </div>
+                    </div>
                     <div class="d-flex flex-column justify-content-between align-items-center align-content-center swiper-slide" id="auto-slide"><input type="range" id="map-zoom" min="1" max="100" value="10">
                         <div id="map" class="rosbot-image"></div>
                         <div class="d-flex flex-row controls-container" id="autonomous-controls">
                             <div class="d-flex flex-column" id="autonomous-buttons"><button class="btn btn-primary" type="button" id="explore-button">EXPLORE</button><button class="btn btn-primary" type="button" id="stop-button">STOP</button><button class="btn btn-primary" type="button" id="clear-button">CLEAR MAP</button>
                                 <div
-                                    class="align-items-center align-content-center" id="battery-container"><img src="assets/img/bateria.png" class="battery-frame">
+                                    class="align-items-center align-content-center" id="battery-container">
                                     <div class="progress">
-                                        <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div id="dynamic" class="progress-bar progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                             </div>
                         </div>
                         <div class="flex-fill" id="autonomous-statuses">
-                            <div class="value-container">
-                                <p class="value-label">Current task</p>
-                                <p id="current-task" class="actual-value">IDLE</p>
+                            <div class="value-container row">
+                                <p class="value-label col value-col-label">Current task</p>
+                                <p id="current-task" class="actual-value col actual-value-col">IDLE</p>
                             </div>
-                            <div class="value-container">
-                                <p class="value-label">Task status</p>
-                                <p id="task-status" class="actual-value">WAITING</p>
+                            <div class="value-container row">
+                                <p class="value-label col value-col-label">Task status</p>
+                                <p id="task-status" class="actual-value col actual-value-col">WAITING</p>
                             </div>
-                            <div class="value-container">
-                                <p class="value-label">Exploration time</p>
-                                <p id="exploration-time" class="actual-value">00:00:00</p>
+                            <div class="value-container row">
+                                <p class="value-label col value-col-label">Exploration time</p>
+                                <p id="exploration-time" class="actual-value col actual-value-col">00:00:00</p>
                             </div>
                             <div class="position-container row">
                                 <div class="col position-label">
