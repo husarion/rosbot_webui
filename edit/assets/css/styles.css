@@ -1,6 +1,6 @@
 body {
   background-color:#ccc;
-  font-family:Audiowide;
+  font-family:Lato;
 }
 
 #rosbot-panel {
@@ -187,21 +187,18 @@ body {
 #stop-button, #stop-button:active, #stop-button:focus, #stop-button:hover {
   background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
-  font-family:Lato;
   border:0px solid rgba(255, 255, 255, 0);
 }
 
 #clear-button, #clear-button:active, #clear-button:focus, #clear-button:hover {
   background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
-  font-family:Lato;
   border:0px solid rgba(255, 255, 255, 0);
 }
 
 #explore-button, #explore-button:active, #explore-button:focus, #explore-button:hover {
   background-color:rgba(200, 16, 46, 1);
   box-shadow:none;
-  font-family:Lato;
   border:0px solid rgba(255, 255, 255, 0);
 }
 
