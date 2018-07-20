@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROSbot_webUI</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anonymous+Pro:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
@@ -14,90 +16,189 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css">
 </head>
 
-<body>
+<body class="bg-light">
     <section class="d-flex flex-column justify-content-between" id="rosbot-panel">
         <div id="rosbot-perception">
             <div class="d-flex flex-fill justify-content-between swiper-container" id="swiper-cont">
                 <div class="swiper-wrapper">
-                    <div class="d-flex flex-column justify-content-between align-items-center align-content-center swiper-slide" id="rc-slide">
-                        <div id="video-container" class="rosbot-image">
-                            <p id="sensor-label-fl" class="sensor-label">FL</p>
-                            <p id="sensor-label-fr" class="sensor-label">FR</p>
-                            <p id="sensor-label-rl" class="sensor-label">RL</p>
-                            <p id="sensor-label-rr" class="sensor-label">RR</p><img id="video" class="rosbot-image">
-                            <div class="background-text-container"><span class="background-text">Video</span></div>
-                        </div>
-                        <div class="joystick-container">
-                            <div id="joystick"></div>
+                    <div id="rc-slide" class="swiper-slide d-flex align-items-center">
+                        <div class="container">
+                            <!-- <div class="row justify-content-between my-0">
+                            </div> -->
+                            <div class="row justify-content-center my-0">
+                                <div class="col">
+                                    <div id="video-container" class="rosbot-image w-100 position-relative">
+                                        <div class="row justify-content-between position-absolute m-0 p-0 fixed-top">
+                                            <p id="sensor-label-fl" class="sensor-label position-relative text-light m-0 p-1">FL</p>
+                                            <p id="sensor-label-fr" class="sensor-label position-relative text-light m-0 p-1">FR</p>
+                                        </div>
+                                        <img id="video" class="rosbot-image w-100">
+                                        <div class="row justify-content-between position-absolute m-0 p-0 fixed-bottom">
+                                            <p id="sensor-label-rl" class="sensor-label position-relative text-light m-0 p-1">RL</p>
+                                            <p id="sensor-label-rr" class="sensor-label position-relative text-light m-0 p-1">RR</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center my-0">
+                                <div class="joystick-container">
+                                    <div id="joystick"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex flex-column justify-content-between align-items-center align-content-center swiper-slide" id="auto-slide"><input type="range" id="map-zoom" min="1" max="100" value="10">
-                        <div id="map" class="rosbot-image"></div>
-                        <div class="d-flex flex-row controls-container" id="autonomous-controls">
-                            <div class="d-flex flex-column" id="autonomous-buttons"><button class="btn btn-primary" type="button" id="explore-button">EXPLORE</button><button class="btn btn-primary" type="button" id="stop-button">STOP</button><button class="btn btn-primary" type="button" id="clear-button">CLEAR MAP</button>
-                                <div
-                                    class="align-items-center align-content-center" id="battery-container">
-                                    <div class="progress">
-                                        <div id="dynamic" class="progress-bar progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="flex-fill" id="autonomous-statuses">
-                            <div class="value-container row">
-                                <p class="value-label col value-col-label">Current task</p>
-                                <p id="current-task" class="actual-value col actual-value-col">IDLE</p>
-                            </div>
-                            <div class="value-container row">
-                                <p class="value-label col value-col-label">Task status</p>
-                                <p id="task-status" class="actual-value col actual-value-col">WAITING</p>
-                            </div>
-                            <div class="value-container row">
-                                <p class="value-label col value-col-label">Exploration time</p>
-                                <p id="exploration-time" class="actual-value col actual-value-col">00:00:00</p>
-                            </div>
-                            <div class="position-container row">
-                                <div class="col position-label">
-                                    <p class="value-label">ROSbot position</p>
-                                </div>
-                                <div class="col feature-box row coords-row">
-                                    <div class="position-coord-value col">
-                                        <p class="value-label">X:&nbsp;</p>
-                                        <p id="x-pos" class="actual-value">0.00 m</p>
-                                    </div>
-                                    <div class="position-coord-value col">
-                                        <p class="value-label">Y:&nbsp;</p>
-                                        <p id="y-pos" class="actual-value">0.00 m</p>
-                                    </div>
-                                    <div class="position-coord-value col">
-                                        <p class="value-label">Theta:&nbsp;</p>
-                                        <p id="t-pos" class="actual-value">0.00</p>
-                                    </div>
+                    <div id="auto-slide" class="swiper-slide d-flex align-items-center">
+                        <div class="container d-flex flex-column">
+                            <!-- <div class="col"> -->
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control-range" type="range" id="map-zoom" min="10" max="100" value="50">
                                 </div>
                             </div>
-                            <div class="position-container row">
-                                <div class="col position-label">
-                                    <p class="value-label">ROSbot orientation</p>
+                            <div class="row mb-2" id="map-container">
+                                <div class="col col-md-8">
+                                    <div id="map" class="rosbot-image"></div>
                                 </div>
-                                <div class="col feature-box row coords-row">
-                                    <div class="position-coord-value col">
-                                        <p class="value-label">R:&nbsp;</p>
-                                        <p id="roll" class="actual-value">0.00</p>
+                            </div>
+                            <div class="row bg-light border border-danger rounded mx-1">
+                                <div class="col">
+                                    <div class="row d-flex justify-content-end m-1 align-middle">
+                                        <div class="mr-1" id="battery-container">
+                                            <p id="batery-percent" class="m-0 p-0">
+                                                <strong>100%</strong>
+                                            </p>
+                                        </div>
+                                        <div class="mr-1 my-auto p-0 align-middle">
+                                            <div class="progress m-0 p-1">
+                                                <div id="dynamic" class="progress-bar bg-success progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="position-coord-value col">
-                                        <p class="value-label">P:&nbsp;</p>
-                                        <p id="pitch" class="actual-value">0.00</p>
+                                    <div class=row>
+                                        <div class="col">
+                                            <div class="row mt-2">
+                                                <div class="col col-sm-3">
+                                                    <p class="text-danger">Current task</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p id="current-task" class="text-dark">IDLE</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-sm-3">
+                                                    <p class="text-danger">Task status</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p id="task-status" class="text-dark">WAITING</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-sm-3">
+                                                    <p class="text-danger">Exploration time</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p id="exploration-time" class="text-dark">00:00:00</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-sm-3">
+                                                    <p class="text-danger">ROSbot position</p>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <p class="text-danger">X:&nbsp;</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <p id="x-pos" class="text-dark">0.00 m</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <p class="text-danger">Y:&nbsp;</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <p id="y-pos" class="text-dark">0.00 m</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <p class="text-danger">Theta:&nbsp;</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <p id="t-pos" class="text-dark">0.00</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-sm-3">
+                                                    <p class="text-danger">ROSbot orientation</p>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <p class="text-danger">R:&nbsp;</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <p id="roll" class="text-dark">0.00</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <p class="text-danger">P:&nbsp;</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <p id="pitch" class="text-dark">0.00</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <p class="text-danger">Y:&nbsp;</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <p id="yaw" class="text-dark">0.00</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="position-coord-value col">
-                                        <p class="value-label">Y:&nbsp;</p>
-                                        <p id="yaw" class="actual-value">0.00</p>
+                                    <div class="row align-content-center my-3">
+                                        <div class="col col-md-4 d-flex justify-content-center">
+                                            <button class="btn btn-primary btn-danger text-light w-100" type="button" id="explore-button">EXPLORE</button>
+                                        </div>
+                                        <div class="col col-md-4 d-flex justify-content-center">
+                                            <button class="btn btn-primary btn-danger text-light w-100" type="button" id="stop-button">STOP</button>
+                                        </div>
+                                        <div class="col col-md-4 d-flex justify-content-center">
+                                            <button class="btn btn-primary btn-danger text-light w-100" type="button" id="clear-button">CLEAR MAP</button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <script src="assets/js/jquery.min.js"></script>

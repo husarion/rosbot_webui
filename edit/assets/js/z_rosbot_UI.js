@@ -1,9 +1,7 @@
 var viewer;
 var gridClient;
-var mapScale = 1;
-var scaleSliderValue = mapScale * 10;
+var mapScale = 5;
 var mapZoomSlider;
-var mapZoomValue;
 var mapSizeX = 5;
 var mapSizeY = 5;
 var mapShiftX;
@@ -179,13 +177,11 @@ window.onload = function () {
 
 	videoContainer = document.getElementById('video');
 	videoContainer.onload = function () {
-
+		setView()
 	};
 	document.getElementById('video').src = "http://" + location.hostname + ":8082/stream?topic=/camera/rgb/image_raw&type=mjpeg&quality=50"
 
 	mapZoomSlider = document.getElementById("map-zoom");
-
-	setMapScale(mapScale);
 	mapZoomSlider.oninput = function () {
 		setMapScale(mapZoomSlider.value / 10);
 
@@ -448,19 +444,19 @@ function initMap() {
 var resize_tout;
 
 function redraw_map() {
-	var map_rect = document.getElementById('auto-slide');
+	var map_rect = document.getElementById('map-container');
 	mapRect = map_rect.getBoundingClientRect();
 
 	var elem = document.getElementsByTagName('CANVAS');
 	if (elem !== undefined) {
 		if (elem.length > 0) {
-			elem[0].style.width = "" + mapRect.right - mapRect.left + "px";
-			elem[0].style.height = "" + mapRect.bottom - mapRect.top + "px";
+			elem[0].style.width = "" + mapRect.right - mapRect.left - 30 + "px";
+			elem[0].style.height = "" + mapRect.bottom - mapRect.top - 10 + "px";
 			//elem[0].setAttribute("width", mapRect.right - mapRect.left + "px");
 			//elem[0].setAttribute("height", mapRect.bottom - mapRect.top + "px");
 		}
 	}
-	document.getElementById("map").style.width = "" + mapRect.right - mapRect.left + "px";
+	document.getElementById("map").style.width = "" + mapRect.right - mapRect.left - 30 + "px";
 	document.getElementById("map").style.height = "" + mapRect.bottom - mapRect.top + "px";
 	//document.getElementById("map").setAttribute("width", mapRect.right - mapRect.left + "px");
 	//document.getElementById("map").setAttribute("height", mapRect.bottom - mapRect.top + "px");
@@ -471,10 +467,10 @@ function setMapScale(scale) {
 	if (scale !== undefined) {
 		mapScale = scale;
 	}
-	resizeMap(mapScale);
+	resizeMap();
 }
 
-function resizeMap(newScale) {
+function resizeMap() {
 	if (gridClient !== undefined) {
 		if (gridClient.client.currentGrid.message !== undefined) {
 			mapSizeX = gridClient.client.currentGrid.message.info.width * mapScale / 100;

@@ -1,44 +1,5 @@
 body {
-  background-color:#ccc;
   font-family:Lato;
-}
-
-#rosbot-panel {
-  height:100vh;
-}
-
-@media screen and (orientation: landscape) and (min-height: 768px) {
-  #rosbot-panel {
-    height:100vh;
-    padding:15px;
-  }
-}
-
-#rosbot-perception {
-  width:100%;
-  padding:0px;
-  margin:0;
-  height:calc(100% - 10px);
-}
-
-#rosbot-status {
-  width:100%;
-  height:10px;
-  margin-bottom:0px;
-  margin-left:0px;
-  margin-right:0px;
-}
-
-.rosbot-image {
-  border-radius:2px;
-  padding:0px;
-  margin:0px;
-  /*object-fit:contain;*/
-  /*max-height:100%;*/
-  width:100%;
-  background-color:rgba(0, 0, 0, 0);
-  min-width:320px;
-  min-height:240px;
 }
 
 #joystick {
@@ -48,63 +9,20 @@ body {
   width:300px;
   height:300px;
   background-position:center;
-  bottom:0px;
 }
 
-.controls-container {
-  background-color:rgba(13,15,18,0.29);
-  width:99%;
-  min-height:125px;
-  border-radius:5px;
-  padding:2px;
-  bottom:0px;
-}
-
-@media (min-height: 768px) {
-  .controls-container {
-    width:99%;
-    max-width:850px;
-    /*height:250px;*/
-    border-radius:5px;
-    margin:auto;
-  }
-}
-
-@media (max-aspect-ratio: 6/8) {
-  .controls-container {
-    /*width:99%;*/
-    /*max-width:650px;*/
-    /*height:250px;*/
-    /*border-radius:5px;*/
-    /*margin:auto;*/
-  }
-}
-
-@media (min-height: 860px) and (min-aspect-ratio: 6/8) {
-  .controls-container {
-    width:99%;
-    max-width:850px;
-    border-radius:5px;
-    margin:auto;
-  }
-}
-
-.swiper-container {
-  width:100%;
-  height:100%;
-  background-color:rgba(0, 0, 0, 0);
-}
-
-.swiper-slide {
-  text-align:center;
-  background:rgba(0,0,0,0);
+.joystick-container {
+  position:relative;
+  width:300px;
+  height:300px;
 }
 
 .swiper-slide:nth-child(1n) {
   width:100%;
+  height: 100vh;
 }
 
-@media screen and (min-aspect-ratio: 16/12) {
+@media screen and (min-aspect-ratio: 12/12) {
   .swiper-slide:nth-child(1n) {
     width:50%;
   }
@@ -114,96 +32,12 @@ body {
   width:100%;
 }
 
-@media screen and (min-aspect-ratio: 16/12) {
+
+
+@media screen and (min-aspect-ratio: 12/12) {
   .swiper-slide:nth-child(2n) {
     width:50%;
   }
-}
-
-#battery-container {
-  height:19px;
-  /*z-index:2;*/
-  background-size:100% 100%;
-  background-repeat:no-repeat;
-  background-position:center;
-  position:relative;
-  margin-top:2px;
-  margin-bottom:2px;
-}
-
-@media (min-height: 768px) and (min-aspect-ratio: 6/8) {
-  #battery-container {
-    height:28px;
-  }
-}
-
-#control-panel {
-  width:400px;
-  padding:0px;
-  margin:0 auto;
-  font-size:10px;
-}
-
-@media (min-height: 768px) {
-  #control-panel {
-    font-size:18px;
-  }
-}
-
-#control-panel .row {
-  margin-left:0px;
-  margin-right:0px;
-}
-
-#rosbot-controls {
-  width:100%;
-  margin:0px;
-  padding:0px;
-  min-width:280px;
-}
-
-.btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  /*background-repeat:no-repeat;*/
-  /*background-size:12px 12px;*/
-  /*background-position:5px 50%;*/
-  padding:2px;
-  margin-top:2px;
-  margin-bottom:2px;
-  border-color:rgba(255, 255, 255, 0);
-  box-shadow:none;
-  color:rgb(255, 255, 255);
-  border-radius:5px;
-  text-align:center;
-  font-size:10px;
-}
-
-@media (min-height: 768px) and (min-aspect-ratio: 6/8) {
-  .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-    font-size:15px;
-    padding:3px 15px;
-  }
-}
-
-#stop-button, #stop-button:active, #stop-button:focus, #stop-button:hover {
-  background-color:rgba(200, 16, 46, 1);
-  box-shadow:none;
-  border:0px solid rgba(255, 255, 255, 0);
-}
-
-#clear-button, #clear-button:active, #clear-button:focus, #clear-button:hover {
-  background-color:rgba(200, 16, 46, 1);
-  box-shadow:none;
-  border:0px solid rgba(255, 255, 255, 0);
-}
-
-#explore-button, #explore-button:active, #explore-button:focus, #explore-button:hover {
-  background-color:rgba(200, 16, 46, 1);
-  box-shadow:none;
-  border:0px solid rgba(255, 255, 255, 0);
-}
-
-#current-task-row {
-  border-bottom:1px solid rgba(255, 255, 255, 1);
 }
 
 #dynamic {
@@ -214,313 +48,18 @@ body {
   background-color:rgb(200, 16, 46);
 }
 
-#map-zoom {
-  width:100%;
-  height:10px;
-  top:0px;
-  margin:0px;
-  padding:0px;
-  position:absolute;
-}
-
-.btn-primary:disabled, .btn-primary:disabled, .show > .btn-primary.dropdown-toggle {
-  color:#bbb;
-  background-color:rgba(255, 255, 255, 0);
-  border-color:rgba(255, 255, 255, 0.5);
-}
-
-.btn-primary {
-  color:#fff;
-  background-color:rgba(255, 255 ,255, 1);
-  border-color:rgba(255, 255 ,255, 1);
-}
-
 .sensor-label {
-  margin:0px;
   background-color:rgba(0, 0, 0, 0.5);
-  padding:3px;
-  color:rgba(205, 205, 205, 1);
-  display:inline-block;
-  position:absolute;
-}
-
-#sensor-fl {
-  position:relative;
-  left:3px;
-  top:3px;
-}
-
-#sensor-fr {
-  position:relative;
-  right:3px;
-  top:3px;
-}
-
-#sensor-rl {
-  position:absolute;
-  left:3px;
-}
-
-#sensor-rr {
-  position:absolute;
-  right:3px;
-}
-
-#autonomous-statuses {
-  font-size:12px;
-  margin:auto;
-}
-
-.rosbot-pos {
-  width:33%;
-  display:flex;
-  justify-content:space-between;
-  padding:0px;
-}
-
-#rosbot-position .col:not(:last-child) {
-  background-color:rgba(0, 0, 0, 0);
-  border-right:1px solid rgba(255, 255, 255, 1);
-}
-
-@media screen and (orientation: landscape) and (min-height: 768px) {
-  #autonomous-statuses {
-    font-size:15px;
-  }
-}
-
-.value-container {
-  width:100%;
-  margin:0px;
-  padding:0px;
-  display:flex;
-  justify-content:space-between;
-}
-
-@media (min-width: 992px) {
-  .value-container {
-    padding:0 20px;
-  }
-}
-
-.value-label {
-  text-align:left;
-  margin:0px;
-  padding:0px;
-  white-space:nowrap;
-  color:rgba(200, 16, 46, 1);
-}
-
-.actual-value {
-  text-align:left;
-  margin:0px;
-  padding:0px;
-  white-space:nowrap;
-  color:rgba(255, 255, 255, 1);
-}
-
-.position-container {
-  width:100%;
-  margin:0;
-  /*margin-left:10px;*/
-  /*margin-right:10px;*/
-  display:flex;
-  justify-content:space-between;
-}
-
-@media (min-width: 992px) {
-  .position-container {
-    padding:0 20px;
-  }
-}
-
-.position-coord-value {
-  width:33%;
-  display:flex;
-  justify-content:left;
-  padding:0px;
-  margin:0px;
-  white-space:nowrap;
-  min-width:100px;
-}
-
-.position-label {
-  -ms-flex:0 0 100%;
-  flex:0 0 100%;
-  max-width:100%;
-  padding:0px;
-  margin:0px;
-}
-
-@media (min-width: 576px) {
-  .position-label {
-    -ms-flex:0 0 35%;
-    flex:0 0 35%;
-    padding:0px;
-    margin:0px;
-  }
-}
-
-#autonomous-buttons {
-  margin:auto;
-  min-width:70px;
-  margin-left:2px;
-}
-
-#map {
-  background-repeat:no-repeat;
-  background-size:100%;
-  background-position:center;
-  flex:1 1 auto;
-  -ms-flex:1 1 auto;
-}
-
-#video {
-  /*background-image:url("video_dumy.png");*/
-  /*background-repeat:repeat;*/
-  /*background-size:100%;*/
-  /*background-position:center;*/
-}
-
-#video-container {
-  margin:0 auto;
-  /*background-color:rgba(127,127,127,0.5);*/
-  position:relative;
-  margin:auto;
-  width:99%;
-}
-
-#sensor-label-fl {
-  left:0px;
-  top:0px;
-}
-
-#sensor-label-fr {
-  right:0px;
-  top:0px;
-}
-
-#sensor-label-rl {
-  left:0px;
-  bottom:0px;
-}
-
-#sensor-label-rr {
-  right:0px;
-  bottom:0px;
-}
-
-.background-text {
-  margin:auto;
-  font-size:100px;
-  font-family:Lato;
-  z-index:-1;
-}
-
-.background-text-container {
-  position:absolute;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  display:flex;
-  align-items:center;
-}
-
-.coords-row {
-  margin:0px;
-  padding:0px;
-}
-
-.map-container {
-  width:99%;
-  /*background-color:rgb(255, 0,0);*/
-  top:0px;
-  bottom:0px;
-  flex:1 1 auto;
-  -ms-flex:1 1 auto;
-  position:relative;
-}
-
-#autonomous-controls {
-  bottom:0px;
-  position:absolute;
-}
-
-#swiper-slide {
-  height:100vh;
 }
 
 .progress {
-  width:100%;
-  height:19px;
-  /*padding-right:2px;*/
+  width:80px;
+  height:20px;
   background-color:rgba(0, 0, 0, 0);
-  background-image:url("../../assets/img/battery_w_full.png");
-  background-size:100% 100%;
+  background-image:url("../../assets/img/bateria.png");
+  background-size:100% 100%; 
 }
 
-@media (min-height: 768px) and (min-aspect-ratio: 6/8) {
-  .progress {
-    height:28px;
-  }
+#map-container {
+  height: 50vh; 
 }
-
-.battery-frame {
-  width:70px;
-  height:19px;
-  position:absolute;
-  top:0px;
-  left:0px;
-}
-
-@media (min-height: 768px) and (min-aspect-ratio: 6/8) {
-  .battery-frame {
-    width:112px;
-    height:28px;
-    position:absolute;
-    top:0px;
-    left:0px;
-  }
-}
-
-.joystick-container {
-  position:absolute;
-  width:300px;
-  height:300px;
-  background-position:center;
-  bottom:0px;
-  background-color:rgba(255, 255, 255, 0.25);
-  border-radius:150px;
-}
-
-.joystick-caption {
-  z-index:1;
-  background-color:rgba(255, 255, 255, 0.25);
-}
-
-.value-col-label {
-  -ms-flex:0 0 35%;
-  flex:0 0 35%;
-  padding:0px;
-  margin:0px;
-}
-
-.battery-label {
-  width:100%;
-  height:100%;
-  font-size:10px;
-  font-family:Lato;
-  position:absolute;
-  line-height:18px;
-  left:0;
-  color:rgb(255, 255, 255);
-}
-
-@media (min-height: 768px) and (min-aspect-ratio: 6/8) {
-  .battery-label {
-    font-size:15px;
-    line-height:28px;
-  }
-}
-
