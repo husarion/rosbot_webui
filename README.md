@@ -50,7 +50,7 @@ and change line:
 
 to:
 
-`        root /home/husarion/ros_workspace/src/ROSbot_webui/deploy;`
+`        root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
 
 Restart Nginx:
 
@@ -71,10 +71,3 @@ You can use it:
 Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` wth name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
 
 If you do not have Husarnet configured, you can use local IP of yout device.
-
-
-# Modifications
-
-By default you get interface running in production version, it is located in `deploy` directory.
-If you want to edit interface, you can use Bootstrap Studio, project file is located in `BootstrapStudio` directory.
-You can also edit project with use of your favourite editor, all files are located in `edit` directory.
