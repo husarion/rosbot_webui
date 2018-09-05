@@ -66,7 +66,7 @@ Application subscribes some topics to obtain robot pose, battery state, image fr
 
 You can use it:
 
-`roslaunch exploration_demo demo.launch`
+`roslaunch rosbot_webui demo.launch`
 
 Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` wth name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
 
