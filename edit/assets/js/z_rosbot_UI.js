@@ -48,6 +48,8 @@ var timerInstance;
 
 var mySwiper;
 
+var teleop;
+
 // var sensorLabelFL;
 // var sensorLabelFR;
 // var sensorLabelRL;
@@ -310,6 +312,7 @@ function enableStopButton() {
 }
 
 function clearMap() {
+	console.log("Send reuest to clear map");
 	clear_publisher.publish(bool_reset);
 }
 
@@ -380,6 +383,7 @@ function setView() {
 	}
 	joyPosX = (videoRect.right - videoRect.left - joyWidth) / 2;
 	createJoystick(0, 0, joyWidth, joyHeight);
+	initTeleopKeyboard();
 
 	//sensorLabelRL.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
 	//sensorLabelRR.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
@@ -649,4 +653,19 @@ function startExploration() {
 	});
 
 	startTimer();
+}
+
+function initTeleopKeyboard() {
+	// Use w, s, a, d keys to drive your robot
+
+	// Check if keyboard controller was aready created
+	if (teleop == null) {
+		// Initialize the teleop.
+		teleop = new KEYBOARDTELEOP.Teleop({
+			ros: ros,
+			topic: '/cmd_vel'
+		});
+	}
+
+	teleop.scale = 0.25;
 }
