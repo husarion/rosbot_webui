@@ -22,7 +22,7 @@ Clone this repository:
 
 `cd /home/husarion/ros_workspace/src`
 
-`git clone https://github.com/husarion/ROSbot_webui.git`
+`git clone https://github.com/husarion/rosbot_webui.git`
 
 
 Build workspace:
