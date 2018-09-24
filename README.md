@@ -71,3 +71,22 @@ You can use it:
 Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` wth name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
 
 If you do not have Husarnet configured, you can use local IP of yout device.
+
+
+# Launch webui at startup
+
+If you want web UI to launch at robot startup edit file '/etc/rc.local`:
+
+```
+sudo nano /etc/rc.local
+```
+
+Find line:
+```
+exit 0
+```
+at the end of the file, and add above it:
+
+```
+/home/husarion/ros_workspace/src/scripts/autostart.sh
+```
