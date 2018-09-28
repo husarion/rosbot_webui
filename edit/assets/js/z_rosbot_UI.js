@@ -45,10 +45,16 @@ var sensorSubscriberRL;
 var sensorSubscriberRR;
 
 var timerInstance;
+var watchdogTimerInstance;
 
 var mySwiper;
 
 var teleop;
+
+var lastMsgDate = new Date();
+var lastMsgMs = lastMsgDate.getTime();
+var currentMsgDate = new Date();
+var currentMsgMs = currentMsgDate.getTime();
 
 // var sensorLabelFL;
 // var sensorLabelFR;
@@ -222,6 +228,8 @@ window.onload = function () {
 		mapShiftX = pose.pose.position.x;
 		mapShiftY = pose.pose.position.y;
 		setMapScale(mapScale);
+		lastMsgDate = new Date();
+		lastMsgMs = lastMsgDate.getTime();
 	});
 
 	rpy_subscriber.subscribe(function (rpy) {
@@ -235,6 +243,8 @@ window.onload = function () {
 		if (document.getElementById("yaw") !== undefined) {
 			document.getElementById("yaw").innerHTML = rpy.z.toFixed(2) + "°";
 		}
+		lastMsgDate = new Date();
+		lastMsgMs = lastMsgDate.getTime();
 	});
 
 	sensorSubscriberFL.subscribe(function (range) {
@@ -244,6 +254,8 @@ window.onload = function () {
 		} else {
 			document.getElementById("sensor-label-fl").innerHTML = range.range.toFixed(2) + "m";
 		}
+		lastMsgDate = new Date();
+		lastMsgMs = lastMsgDate.getTime();
 	});
 
 	sensorSubscriberFR.subscribe(function (range) {
@@ -252,6 +264,8 @@ window.onload = function () {
 		} else {
 			document.getElementById("sensor-label-fr").innerHTML = range.range.toFixed(2) + "m";
 		}
+		lastMsgDate = new Date();
+		lastMsgMs = lastMsgDate.getTime();
 	});
 
 	sensorSubscriberRL.subscribe(function (range) {
@@ -260,6 +274,8 @@ window.onload = function () {
 		} else {
 			document.getElementById("sensor-label-rl").innerHTML = range.range.toFixed(2) + "m";
 		}
+		lastMsgDate = new Date();
+		lastMsgMs = lastMsgDate.getTime();
 	});
 
 	sensorSubscriberRR.subscribe(function (range) {
@@ -268,11 +284,15 @@ window.onload = function () {
 		} else {
 			document.getElementById("sensor-label-rr").innerHTML = range.range.toFixed(2) + "m";
 		}
+		lastMsgDate = new Date();
+		lastMsgMs = lastMsgDate.getTime();
 	});
 
 
 	battery_subscriber.subscribe(function (battery) {
 		setBatteryPercentage(100 * (battery.voltage - min_voltage) / (max_voltage - min_voltage));
+		lastMsgDate = new Date();
+		lastMsgMs = lastMsgDate.getTime();
 	});
 
 	timerInstance = new Timer();
@@ -300,7 +320,29 @@ window.onload = function () {
 	initMap();
 	disableStopButton();
 	setView();
+	
+	watchdogTimerInstance = new Timer();
+	watchdogTimerInstance.addEventListener('secondTenthsUpdated', watchdogTimer);
+	watchdogTimerInstance.start();
 };
+
+function watchdogTimer(e) {
+	currentMsgDate = new Date();
+	currentMsgMs = currentMsgDate.getTime();
+	if (currentMsgMs - lastMsgMs > 1000) {
+		noMessage = "No messege received since ";
+		checkConn = " seconds.\n\rCheck your internet connection and reload this page!"
+		$.notify(noMessage.concat(parseInt((currentMsgMs - lastMsgMs) / 1000)).concat(checkConn),
+			{
+				autoHideDelay: 990,
+				position: "top left",
+				className: 'warn',
+				showDuration: 0,
+				hideDuration: 0,
+				gap: 2
+			});
+	}
+}
 
 function disableStopButton() {
 	document.getElementById("stop-button").disabled = true;
