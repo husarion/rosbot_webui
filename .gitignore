@@ -1,8 +1,6 @@
-eventemitter2.min.js
 init-container
 ros-start
 rosbridge_websocket
-roslib.min.js
 assets/js/_easeljs.min.js
 assets/js/_ros2d.js
 assets/js/_eventemitter2.min.js
@@ -17,3 +15,8 @@ screen/*
 catkin_generated
 cmake_install.cmake
 CTestTestfile.cmake
+build
+devel
+CMakeFiles
+CMakeCache.txt
+*.ninja*
