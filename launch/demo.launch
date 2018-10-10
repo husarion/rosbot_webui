@@ -9,7 +9,7 @@
 
     <node pkg="rosbot_webui" type="pose_to_tf_transform" name="pose_to_tf_transform" required="true"/>
 
-    <node pkg="rosbot_webui" type="tf_to_pose" name="tf_to_pose" required="true"/>
+    <node pkg="rosbot_webui" type="tf_to_pose" name="tf_to_pose" required="true" output="screen" />
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
         <param name="recovery_behavior_enabled" value="true"/>

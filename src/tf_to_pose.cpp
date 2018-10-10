@@ -25,11 +25,10 @@ int main(int argc, char **argv)
     }
     catch (tf::TransformException ex)
     {
-      ROS_ERROR("%s", ex.what());
+      ROS_WARN("Could not get transform between 'map' and 'base_link', will retry every second");
       ros::Duration(1.0).sleep();
     }
 
-    ROS_INFO("Proceed with tf");
     rosbot_pose.pose.position.x = transform.getOrigin().x();
     rosbot_pose.pose.position.y = transform.getOrigin().y();
     rosbot_pose.pose.position.z = transform.getOrigin().z();
