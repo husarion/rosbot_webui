@@ -5,6 +5,8 @@
 
     <node pkg="rosbot_webui" type="serial_bridge.sh" name="bridge" output="screen"/>
 
+    <include file="$(find husarion_ros)/launch/wifi.launch"></include>
+
     <node pkg="tf" type="static_transform_publisher" name="ROSbot2_laser" args="0 0 0 3.14 0 0 base_link laser 10" />
 
     <node pkg="tf" type="static_transform_publisher" name="ROSbot2_camera" args="-0.04 0 0.15 0 0 0 base_link camera_link 10" />

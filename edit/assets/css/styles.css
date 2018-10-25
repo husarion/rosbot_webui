@@ -63,3 +63,8 @@ body {
 #map-container {
   height: 50vh; 
 }
+
+.wifi-status {
+  width: 20px;
+  height: 20px;
+}

@@ -24,6 +24,10 @@ Clone this repository:
 
 `git clone https://github.com/husarion/rosbot_webui.git`
 
+Clone `husarion_ros` repository:
+
+`git clone https://github.com/lukaszmitka/husarion_ros.git`
+
 
 Build workspace:
 

@@ -56,6 +56,9 @@ var lastMsgMs = lastMsgDate.getTime();
 var currentMsgDate = new Date();
 var currentMsgMs = currentMsgDate.getTime();
 
+
+var wifiSubscriber;
+
 // var sensorLabelFL;
 // var sensorLabelFR;
 // var sensorLabelRL;
@@ -161,6 +164,12 @@ window.onload = function () {
 		ros: ros,
 		name: '/battery',
 		messageType: 'sensor_msgs/BatteryState'
+	});
+
+	wifiSubscriber = new ROSLIB.Topic({
+		ros: ros,
+		name: '/wifi_status',
+		messageType: 'diagnostic_msgs/DiagnosticArray'
 	});
 
 	$(document).on("click", "#video", function () {
@@ -295,6 +304,10 @@ window.onload = function () {
 		lastMsgMs = lastMsgDate.getTime();
 	});
 
+	wifiSubscriber.subscribe(function (statuses) {
+		updateWifiStatuses(statuses);
+	});
+
 	timerInstance = new Timer();
 
 	timerInstance.addEventListener('secondTenthsUpdated', function (e) {
@@ -342,6 +355,31 @@ function watchdogTimer(e) {
 				gap: 2
 			});
 	}
+}
+
+function updateWifiStatuses(wifiStatuses) {
+	console.log("Statuses ", wifiStatuses);
+	var wifiStatusP1 = '<div class="text-center mx-1">';
+	var wifiStatusP2 = '<img src="assets/img/wifi-';
+	var wifiStatusP3 = '.png" class="wifi-status mx-1" alt="wifi-status"></div>';
+	var wifiStatusStr;
+	var wifiStatusAggregated = "";
+	for (i = 0; i < wifiStatuses.status.length; i++) {
+		var wifiPercent;
+		for (j = 0; j < wifiStatuses.status[i].values.length; j++) {
+			if (wifiStatuses.status[i].values[j].key = "percentage") {
+				wifiPercent = wifiStatuses.status[i].values[j].value;
+			}
+		}
+		wifiStatusStr = wifiStatusP1 + wifiStatuses.status[i].name + wifiStatusP2 + Math.ceil(wifiPercent / 25) + wifiStatusP3;
+		// console.log("Received WiFi status: ", wifiStatuses.status[i].name, ", strength: ", Math.ceil(wifiPercent / 25), "/4");
+		wifiStatusAggregated += wifiStatusStr;
+	}
+	console.log(wifiStatusAggregated);
+	wifiStatusElem = document.getElementById('wifi-status');
+	wifiStatusElem.style.display = "inherit";
+	wifiStatusContainer = document.getElementById('wifi-status-container');
+	wifiStatusContainer.innerHTML = wifiStatusAggregated;
 }
 
 function disableStopButton() {
