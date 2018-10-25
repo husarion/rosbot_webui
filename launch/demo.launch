@@ -7,6 +7,8 @@
 
     <node pkg="tf" type="static_transform_publisher" name="ROSbot2_laser" args="0 0 0 3.14 0 0 base_link laser 10" />
 
+    <node pkg="tf" type="static_transform_publisher" name="ROSbot2_camera" args="-0.04 0 0.15 0 0 0 base_link camera_link 10" />
+
     <node pkg="rosbot_webui" type="pose_to_tf_transform" name="pose_to_tf_transform" required="true"/>
 
     <node pkg="rosbot_webui" type="tf_to_pose" name="tf_to_pose" required="true" output="screen" />
