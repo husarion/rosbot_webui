@@ -196,7 +196,7 @@ window.onload = function () {
 	videoContainer.onload = function () {
 		setView()
 	};
-	document.getElementById('video').src = "http://" + location.hostname + ":8082/stream?topic=/camera/rgb/image_raw&type=mjpeg&quality=50"
+	document.getElementById('video').src = "http://" + location.hostname + ":8082/stream?topic=/clipping/output&type=mjpeg&quality=100";
 
 	mapZoomSlider = document.getElementById("map-zoom");
 	mapZoomSlider.oninput = function () {
@@ -320,6 +320,18 @@ window.onload = function () {
 		document.getElementById("exploration-time").innerHTML = timerInstance.getTimeValues().toString();
 	});
 
+	clipping_dist = new ROSLIB.Message({
+		data: 2.5
+	});
+
+	clipping_topic = new ROSLIB.Topic({
+		ros: ros,
+		name: '/clipping/distance',
+		messageType: 'std_msgs/Float32'
+	});
+
+	clipping_topic.advertise();
+
 	$(document).on("click", "#explore-button", function () {
 		stopTimer();
 		startExploration();
@@ -333,11 +345,23 @@ window.onload = function () {
 	initMap();
 	disableStopButton();
 	setView();
-	
+
+	var slider = document.getElementById("clipRange");
+
+	slider.oninput = function () {
+		updateClippingDistance(this.value / 100);
+	}
+
 	watchdogTimerInstance = new Timer();
 	watchdogTimerInstance.addEventListener('secondTenthsUpdated', watchdogTimer);
 	watchdogTimerInstance.start();
 };
+
+function updateClippingDistance(distance) {
+	clipping_dist.data = distance;
+	clipping_topic.publish(clipping_dist);
+	document.getElementById("current-clip-dist").innerHTML = "Depth clipping plane: " + distance.toString() + "m";
+}
 
 function watchdogTimer(e) {
 	currentMsgDate = new Date();

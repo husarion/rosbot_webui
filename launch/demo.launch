@@ -15,6 +15,8 @@
 
     <node pkg="rosbot_webui" type="tf_to_pose" name="tf_to_pose" required="true" output="screen" />
 
+    <node pkg="husarion_ros" type="depth_clipping_node" name="depth_clipping_node"/>
+
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
         <param name="recovery_behavior_enabled" value="true"/>
         <param name="controller_frequency" value="10.0"/>
