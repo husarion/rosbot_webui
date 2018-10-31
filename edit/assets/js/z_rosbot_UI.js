@@ -382,7 +382,6 @@ function watchdogTimer(e) {
 }
 
 function updateWifiStatuses(wifiStatuses) {
-	console.log("Statuses ", wifiStatuses);
 	var wifiStatusP1 = '<div class="text-center mx-1">';
 	var wifiStatusP2 = '<img src="assets/img/wifi-';
 	var wifiStatusP3 = '.png" class="wifi-status mx-1" alt="wifi-status"></div>';
@@ -396,10 +395,8 @@ function updateWifiStatuses(wifiStatuses) {
 			}
 		}
 		wifiStatusStr = wifiStatusP1 + wifiStatuses.status[i].name + wifiStatusP2 + Math.ceil(wifiPercent / 25) + wifiStatusP3;
-		// console.log("Received WiFi status: ", wifiStatuses.status[i].name, ", strength: ", Math.ceil(wifiPercent / 25), "/4");
 		wifiStatusAggregated += wifiStatusStr;
 	}
-	console.log(wifiStatusAggregated);
 	wifiStatusElem = document.getElementById('wifi-status');
 	wifiStatusElem.style.display = "inherit";
 	wifiStatusContainer = document.getElementById('wifi-status-container');
