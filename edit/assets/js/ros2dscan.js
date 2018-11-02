@@ -13,9 +13,11 @@ ROS2D.ScanShape = function (options) {
 	options = options || {};
 	this.ros = options.ros;
 	this.topic = options.topic || 'scan';
-	this.strokeSize = options.strokeSize || 3;
+	this.strokeSize = options.strokeSize || 0.03;
 	this.strokeColor = options.strokeColor || createjs.Graphics.getRGB(255, 0, 0);
 	this.graphics = new createjs.Graphics();
+
+	createjs.Shape.call(this, this.graphics);
 
 	var rosTopic = new ROSLIB.Topic({
 		ros: this.ros,
@@ -24,8 +26,6 @@ ROS2D.ScanShape = function (options) {
 	});
 
 	rosTopic.subscribe(function (message) {
-		// check for an old map
-		console.log("Scan received");
 		that.graphics.clear();
 		message.angle_min;
 		message.angle_max;
@@ -33,12 +33,10 @@ ROS2D.ScanShape = function (options) {
 
 		for (var i = 1; i < message.ranges.length; ++i) {
 			angle = message.angle_min + message.angle_increment * i;
-			x = 100 * message.ranges[i] * Math.sin(angle);
-			y = 100 * message.ranges[i] * Math.cos(angle);
-
+			x = message.ranges[i] * Math.cos(angle);
+			y = message.ranges[i] * Math.sin(angle);
 			that.graphics.beginFill(that.strokeColor);
-			that.graphics.drawCircle(400 + x, -400 - y, that.strokeSize);
-			createjs.Shape.call(that, that.graphics);
+			that.graphics.drawCircle( -x, y, that.strokeSize);
 		}
 	});
 };

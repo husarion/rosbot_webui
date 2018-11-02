@@ -205,6 +205,14 @@ window.onload = function () {
 		clearTimeout(resize_tout);
 		resize_tout = setTimeout(function () {
 			gridClient.navigator.setRobotMarker();
+			console.log("Add Scan marker");
+			var scanMarker = new ROS2D.ScanShape({
+				ros: ros,
+				topic: "/scan",
+				rootObject: viewer.scene,
+				viewer: viewer
+			});
+			viewer.scene.addChild(scanMarker);
 		}, 50
 		);
 	}
