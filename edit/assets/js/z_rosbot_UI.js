@@ -359,6 +359,12 @@ window.onload = function () {
 };
 
 function addScanMarker() {
+	var stage;
+	if (viewer.scene instanceof createjs.Stage) {
+		stage = viewer.scene;
+	} else {
+		stage = viewer.scene.getStage();
+	}
 	console.log("Add Scan marker");
 	var scanMarker = new ROS2D.ScanShape({
 		ros: ros,
@@ -367,6 +373,19 @@ function addScanMarker() {
 		viewer: viewer
 	});
 	viewer.scene.addChild(scanMarker);
+
+	// setup a listener for the robot pose
+	var poseListener = new ROSLIB.Topic({
+		ros: ros,
+		name: '/rosbot_on_map_pose',
+		messageType: 'geometry_msgs/PoseStamped',
+		throttle_rate: 100
+	});
+	poseListener.subscribe(function (pose) {
+		scanMarker.x = pose.pose.position.x;
+		scanMarker.y = -pose.pose.position.y;
+		scanMarker.rotation = stage.rosQuaternionToGlobalTheta(pose.pose.orientation);
+	});
 }
 
 function updateClippingDistance(distance) {
@@ -554,6 +573,10 @@ function initMap() {
 		viewer: viewer,
 		serverName: '/move_base',
 		continuous: true
+	});
+
+	gridClient.client.on('change', function () {
+		addScanMarker();
 	});
 	addScanMarker();
 	redraw_map();
