@@ -205,14 +205,7 @@ window.onload = function () {
 		clearTimeout(resize_tout);
 		resize_tout = setTimeout(function () {
 			gridClient.navigator.setRobotMarker();
-			console.log("Add Scan marker");
-			var scanMarker = new ROS2D.ScanShape({
-				ros: ros,
-				topic: "/scan",
-				rootObject: viewer.scene,
-				viewer: viewer
-			});
-			viewer.scene.addChild(scanMarker);
+			addScanMarker();
 		}, 50
 		);
 	}
@@ -364,6 +357,17 @@ window.onload = function () {
 	watchdogTimerInstance.addEventListener('secondTenthsUpdated', watchdogTimer);
 	watchdogTimerInstance.start();
 };
+
+function addScanMarker() {
+	console.log("Add Scan marker");
+	var scanMarker = new ROS2D.ScanShape({
+		ros: ros,
+		topic: "/scan",
+		rootObject: viewer.scene,
+		viewer: viewer
+	});
+	viewer.scene.addChild(scanMarker);
+}
 
 function updateClippingDistance(distance) {
 	clipping_dist.data = distance;
@@ -551,6 +555,7 @@ function initMap() {
 		serverName: '/move_base',
 		continuous: true
 	});
+	addScanMarker();
 	redraw_map();
 }
 
