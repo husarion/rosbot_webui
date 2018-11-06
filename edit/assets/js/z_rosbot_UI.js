@@ -59,18 +59,8 @@ var currentMsgMs = currentMsgDate.getTime();
 
 var wifiSubscriber;
 
-// var sensorLabelFL;
-// var sensorLabelFR;
-// var sensorLabelRL;
-// var sensorLabelRR;
-
 window.onload = function () {
 	console.log("onLoad triggered");
-
-	// sensorLabelFL = document.getElementById('sensor-fl');
-	// sensorLabelFR = document.getElementById('sensor-fr');
-	// sensorLabelRL = document.getElementById('sensor-rl');
-	// sensorLabelRR = document.getElementById('sensor-rr');
 
 	dbg_str = new ROSLIB.Message({
 		data: "status"
@@ -516,9 +506,6 @@ function setView() {
 	joyPosX = (videoRect.right - videoRect.left - joyWidth) / 2;
 	createJoystick(0, 0, joyWidth, joyHeight);
 	initTeleopKeyboard();
-
-	//sensorLabelRL.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
-	//sensorLabelRR.style.top = (videoRect.bottom - videoRect.top - 31) + "px";
 }
 
 function setBatteryPercentage(percentage) {
@@ -593,15 +580,10 @@ function redraw_map() {
 		if (elem.length > 0) {
 			elem[0].style.width = "" + mapRect.right - mapRect.left - 30 + "px";
 			elem[0].style.height = "" + mapRect.bottom - mapRect.top - 10 + "px";
-			//elem[0].setAttribute("width", mapRect.right - mapRect.left + "px");
-			//elem[0].setAttribute("height", mapRect.bottom - mapRect.top + "px");
 		}
 	}
 	document.getElementById("map").style.width = "" + mapRect.right - mapRect.left - 30 + "px";
 	document.getElementById("map").style.height = "" + mapRect.bottom - mapRect.top + "px";
-	//document.getElementById("map").setAttribute("width", mapRect.right - mapRect.left + "px");
-	//document.getElementById("map").setAttribute("height", mapRect.bottom - mapRect.top + "px");
-
 }
 
 function setMapScale(scale) {
@@ -793,16 +775,12 @@ function startExploration() {
 }
 
 function initTeleopKeyboard() {
-	// Use w, s, a, d keys to drive your robot
-
 	// Check if keyboard controller was aready created
 	if (teleop == null) {
-		// Initialize the teleop.
 		teleop = new KEYBOARDTELEOP.Teleop({
 			ros: ros,
 			topic: '/cmd_vel'
 		});
 	}
-
 	teleop.scale = 0.25;
 }
