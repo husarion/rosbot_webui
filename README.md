@@ -72,9 +72,9 @@ You can use it:
 
 `roslaunch rosbot_webui demo.launch`
 
-Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` wth name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
+Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` with name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
 
-If you do not have Husarnet configured, you can use local IP of yout device.
+If you do not have Husarnet configured, you can use local IP of your device.
 
 
 # Launch webui at startup
