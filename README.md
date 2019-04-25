@@ -68,9 +68,17 @@ By now you should be able to see draft of web panel in your browser. Just type I
 
 Application subscribes some topics to obtain robot pose, battery state, image from camera and generated map, it also publishes topics with velocity commands and path planning or explortion tasks. Corresponding nodes must be launched at ROSbot to enable full functionality of UI. Example launch file with supporting scripts and configuration files is included in this repository.
 
-You can use it:
+For ROSbot 2.0 you can use:
 
-`roslaunch rosbot_webui demo.launch`
+```bash
+roslaunch rosbot_webui demo.launch
+```
+
+For ROSbot 2.0 PRO you can use:
+
+```bash
+roslaunch rosbot_webui demo_rosbot_pro.launch
+```
 
 Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` with name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
 
