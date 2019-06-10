@@ -388,7 +388,7 @@ function watchdogTimer(e) {
 	currentMsgDate = new Date();
 	currentMsgMs = currentMsgDate.getTime();
 	if (currentMsgMs - lastMsgMs > 1000) {
-		noMessage = "No messege received since ";
+		noMessage = "No message received since ";
 		checkConn = " seconds.\n\rCheck your internet connection and reload this page!"
 		$.notify(noMessage.concat(parseInt((currentMsgMs - lastMsgMs) / 1000)).concat(checkConn),
 			{
