@@ -16,7 +16,9 @@ To install required dependencies:
 
 `sudo apt update`
 
-`sudo apt install python-tornado python-pip ros-kinetic-rosbridge-suite ros-kinetic-web-video-server`
+`sudo apt install python-pip ros-kinetic-rosbridge-suite ros-kinetic-web-video-server`
+
+`python -m pip install --user tornado==4.5.3 python-wifi ifparser`
 
 Clone this repository:
 
@@ -26,7 +28,7 @@ Clone this repository:
 
 Clone `husarion_ros` repository:
 
-`git clone https://github.com/lukaszmitka/husarion_ros.git`
+`git clone https://github.com/husarion/husarion_ros.git`
 
 
 Build workspace:
