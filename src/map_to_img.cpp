@@ -39,6 +39,7 @@ int main(int argc, char **argv)
     try
     {
       listener.lookupTransform(parent_frame, child_frame, ros::Time(0), transform);
+      map_image_provider->updateRobotPosition(transform.getOrigin().getX(), transform.getOrigin().getY());
     }
     catch (tf::TransformException ex)
     {
