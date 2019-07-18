@@ -4,13 +4,15 @@ project(rosbot_webui)
 add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp tf
+  roscpp tf image_transport cv_bridge
 )
+find_package(OpenCV REQUIRED)
 
 catkin_package(
 )
 
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -24,6 +26,13 @@ add_executable(tf_to_pose src/tf_to_pose.cpp)
 
 target_link_libraries(tf_to_pose
   ${catkin_LIBRARIES}
+)
+
+add_executable(map_to_img_node src/map_to_img.cpp src/MapAsImageProvider.cpp)
+
+target_link_libraries(map_to_img_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
 
 install(DIRECTORY launch
