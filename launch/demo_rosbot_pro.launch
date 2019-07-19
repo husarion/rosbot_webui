@@ -17,6 +17,13 @@
 
     <node pkg="husarion_ros" type="depth_clipping_node" name="depth_clipping_node"/>
 
+    <node pkg="rosbot_webui" type="map_to_img_node" name="map_to_img" output="screen">
+        <param name="tile_width" value="640"/>
+        <param name="tile_height" value="480"/>
+        <param name="parent_frame" value="/map"/>
+        <param name="child_frame" value="/base_link"/>
+    </node>
+
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
         <param name="recovery_behavior_enabled" value="true"/>
         <param name="controller_frequency" value="10.0"/>
