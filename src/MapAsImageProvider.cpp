@@ -72,10 +72,11 @@ void MapAsImageProvider::publishMapTile(bool force)
     }
 }
 
-void MapAsImageProvider::updateRobotPosition(float x, float y)
+void MapAsImageProvider::updateRobotPosition(float x, float y, float theta)
 {
     robot_position_x = x;
     robot_position_y = y;
+    robot_orientation_theta = theta;
 }
 
 void MapAsImageProvider::mapUpdate(const nav_msgs::OccupancyGridConstPtr &map)
@@ -184,4 +185,10 @@ void MapAsImageProvider::tileUpdate()
             }
         }
     }
+
+    int im_x_center = cv_img_tile_.image.cols / 2;
+    int im_y_center = cv_img_tile_.image.rows / 2;
+    cv::Point arrow_tip(im_x_center + 15 * cos(robot_orientation_theta), im_y_center - 15 * sin(robot_orientation_theta));
+    cv::Point arrow_base(im_x_center - 15 * cos(robot_orientation_theta), im_y_center + 15 * sin(robot_orientation_theta));
+    cv::arrowedLine(cv_img_tile_.image, arrow_base, arrow_tip, cv::Scalar(100, 100, 100), 2, 8, 0, 0.2);
 }

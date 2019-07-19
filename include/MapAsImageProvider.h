@@ -41,6 +41,7 @@ private:
 
     float robot_position_x;
     float robot_position_y;
+    float robot_orientation_theta;
 
     void poseUpdate(const geometry_msgs::PoseStampedConstPtr &pose);
     void mapUpdate(const nav_msgs::OccupancyGridConstPtr &map);
@@ -53,7 +54,7 @@ public:
     void publishFullMap(bool force = false);
     void publishMapTile(bool force = false);
     void setScale(float scale = DEFAULT_MAP_SCALE);
-    void updateRobotPosition(float x, float y);
+    void updateRobotPosition(float x, float y, float theta);
 };
 
 #endif

@@ -32,6 +32,8 @@ int main(int argc, char **argv)
   map_image_provider = new MapAsImageProvider(n, tile_width, tile_height);
   ros::Subscriber map_zoom_sub = n.subscribe("/map_zoom", 1, map_zoom_callback);
   tf::TransformListener listener;
+  tfScalar yaw, pitch, roll;
+  tf::Matrix3x3 *robot_rot_matrix;
 
   while (ros::ok())
   {
@@ -39,7 +41,9 @@ int main(int argc, char **argv)
     try
     {
       listener.lookupTransform(parent_frame, child_frame, ros::Time(0), transform);
-      map_image_provider->updateRobotPosition(transform.getOrigin().getX(), transform.getOrigin().getY());
+      robot_rot_matrix = new tf::Matrix3x3(transform.getRotation());
+      robot_rot_matrix->getEulerYPR(yaw, pitch, roll);
+      map_image_provider->updateRobotPosition(transform.getOrigin().getX(), transform.getOrigin().getY(), yaw);
     }
     catch (tf::TransformException ex)
     {
