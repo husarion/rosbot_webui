@@ -1,11 +1,5 @@
-var viewer;
-var gridClient;
 var mapScale = 5;
 var mapZoomSlider;
-var mapSizeX = 5;
-var mapSizeY = 5;
-var mapShiftX;
-var mapShiftY;
 var exploration_status = "Waiting for trigger";
 var previous_status;
 var exploration_status_background = "#ffffff";
@@ -16,7 +10,6 @@ var exploreClient;
 var result_subscriber;
 var status_subscriber;
 
-var viewPriority = 0;
 var widthThreshold = 500;
 var joySize = 100;
 var joyWidth = 100;
@@ -175,12 +168,6 @@ window.onload = function () {
 		messageType: 'diagnostic_msgs/DiagnosticArray'
 	});
 
-	$(document).on("click", "#video", function () {
-	});
-
-	$(document).on("click", "#map", function () {
-	});
-
 	mySwiper = new Swiper('.swiper-container', {
 		direction: 'horizontal',
 		loop: false,
@@ -233,8 +220,6 @@ window.onload = function () {
 		var rotation = new THREE.Euler().setFromQuaternion(quaternion, "XYZ");
 		theta_deg = 57.2957795 * rotation.z;
 		document.getElementById("t-pos").innerHTML = theta_deg.toFixed(1) + "°";
-		mapShiftX = pose.pose.position.x;
-		mapShiftY = pose.pose.position.y;
 		lastMsgDate = new Date();
 		lastMsgMs = lastMsgDate.getTime();
 	});
@@ -488,11 +473,6 @@ function setBatteryPercentage(percentage) {
 
 $(window).resize(function () {
 	setView();
-	// clearTimeout(resize_tout);
-	// resize_tout = setTimeout(function () {
-	// 	redraw_map();
-	// }, 100
-	// );
 });
 
 function resetOdometry() {
