@@ -1,0 +1,50 @@
+<launch>
+
+    <param name="use_sim_time" value="true"/>
+
+    <node pkg="rosbot_webui" type="tf_to_pose" name="tf_to_pose" required="true" output="screen" />
+
+    <include file="$(find rosbot_description)/launch/rosbot.launch"></include>
+
+    <node pkg="husarion_ros" type="depth_clipping_node" name="depth_clipping_node">
+        <remap from="/camera/depth/image_rect" to="/camera/depth/image_raw"/>
+        <remap from="/camera/rgb/image_rect_color" to="/camera/rgb/image_raw"/>
+    </node>
+
+    <node pkg="rosbot_webui" type="map_to_img_node" name="map_to_img" output="screen">
+        <param name="tile_width" value="640"/>
+        <param name="tile_height" value="480"/>
+        <param name="parent_frame" value="/map"/>
+        <param name="child_frame" value="/base_link"/>
+    </node>
+
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+        <param name="recovery_behavior_enabled" value="true"/>
+        <param name="controller_frequency" value="10.0"/>
+        <rosparam file="$(find rosbot_webui)/conf/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find rosbot_webui)/conf/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find rosbot_webui)/conf/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find rosbot_webui)/conf/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find rosbot_webui)/conf/trajectory_planner.yaml" command="load" />
+    </node>
+
+    <node pkg="rosbot_webui" type="gmapping_supervisor.py" name="gmapping_supervisor" output="screen"/>
+
+    <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="screen"/>
+
+    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
+        <param name="frequency" type="double" value="1.0"/>
+        <param name="goal_aliasing" type="double" value="0.1"/>
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosbot_webui)/conf/exploration.yaml" command="load" />
+    </node>
+
+    <node pkg="web_video_server" type="web_video_server" name="webvideo4">
+        <param name="address" value="::" />
+        <param name="port" value="8082" />
+    </node>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+        <arg name="port" value="9090"/>
+    </include>
+
+</launch>
