@@ -59,6 +59,9 @@ var currentMsgMs = currentMsgDate.getTime();
 
 var wifiSubscriber;
 
+var mapScalePublisher;
+var mapScaleMsg;
+
 window.onload = function () {
 	console.log("onLoad triggered");
 
@@ -115,6 +118,16 @@ window.onload = function () {
 
 	bool_reset = new ROSLIB.Message({
 		data: true
+	});
+
+	mapScalePublisher = new ROSLIB.Topic({
+		ros: ros,
+		name: '/map_zoom',
+		messageType: 'std_msgs/Int16'
+	});
+
+	mapScaleMsg = new ROSLIB.Message({
+		data: 50
 	});
 
 	pose_subscriber = new ROSLIB.Topic({
@@ -187,17 +200,12 @@ window.onload = function () {
 		setView()
 	};
 	document.getElementById('video').src = "http://" + location.hostname + ":8082/stream?topic=/clipping/output&type=mjpeg&quality=100";
+	document.getElementById('map-video').src = "http://" + location.hostname + ":8082/stream?topic=/map_image/tile&type=mjpeg&quality=100";
 
 	mapZoomSlider = document.getElementById("map-zoom");
 	mapZoomSlider.oninput = function () {
-		setMapScale(mapZoomSlider.value / 10);
-
-		clearTimeout(resize_tout);
-		resize_tout = setTimeout(function () {
-			gridClient.navigator.setRobotMarker();
-			addScanMarker();
-		}, 50
-		);
+		mapScaleMsg.data = parseInt(mapZoomSlider.value, 10);
+		mapScalePublisher.publish(mapScaleMsg);
 	}
 
 	ros.on('connection', function () {
@@ -227,7 +235,6 @@ window.onload = function () {
 		document.getElementById("t-pos").innerHTML = theta_deg.toFixed(1) + "°";
 		mapShiftX = pose.pose.position.x;
 		mapShiftY = pose.pose.position.y;
-		setMapScale(mapScale);
 		lastMsgDate = new Date();
 		lastMsgMs = lastMsgDate.getTime();
 	});
@@ -248,7 +255,6 @@ window.onload = function () {
 	});
 
 	sensorSubscriberFL.subscribe(function (range) {
-		console.log("FL sensor received")
 		if (range.range > range.max_range || range.range < range.min_range) {
 			document.getElementById("sensor-label-fl").innerHTML = "Out of range";
 		} else {
@@ -287,7 +293,6 @@ window.onload = function () {
 		lastMsgDate = new Date();
 		lastMsgMs = lastMsgDate.getTime();
 	});
-
 
 	battery_subscriber.subscribe(function (battery) {
 		setBatteryPercentage(100 * (battery.voltage - min_voltage) / (max_voltage - min_voltage));
@@ -333,7 +338,6 @@ window.onload = function () {
 		clearMap();
 	});
 
-	initMap();
 	disableStopButton();
 	setView();
 
@@ -347,36 +351,6 @@ window.onload = function () {
 	watchdogTimerInstance.addEventListener('secondTenthsUpdated', watchdogTimer);
 	watchdogTimerInstance.start();
 };
-
-function addScanMarker() {
-	var stage;
-	if (viewer.scene instanceof createjs.Stage) {
-		stage = viewer.scene;
-	} else {
-		stage = viewer.scene.getStage();
-	}
-	console.log("Add Scan marker");
-	var scanMarker = new ROS2D.ScanShape({
-		ros: ros,
-		topic: "/scan",
-		rootObject: viewer.scene,
-		viewer: viewer
-	});
-	viewer.scene.addChild(scanMarker);
-
-	// setup a listener for the robot pose
-	var poseListener = new ROSLIB.Topic({
-		ros: ros,
-		name: '/rosbot_on_map_pose',
-		messageType: 'geometry_msgs/PoseStamped',
-		throttle_rate: 100
-	});
-	poseListener.subscribe(function (pose) {
-		scanMarker.x = pose.pose.position.x;
-		scanMarker.y = -pose.pose.position.y;
-		scanMarker.rotation = stage.rosQuaternionToGlobalTheta(pose.pose.orientation);
-	});
-}
 
 function updateClippingDistance(distance) {
 	clipping_dist.data = distance;
@@ -514,11 +488,11 @@ function setBatteryPercentage(percentage) {
 
 $(window).resize(function () {
 	setView();
-	clearTimeout(resize_tout);
-	resize_tout = setTimeout(function () {
-		redraw_map();
-	}, 100
-	);
+	// clearTimeout(resize_tout);
+	// resize_tout = setTimeout(function () {
+	// 	redraw_map();
+	// }, 100
+	// );
 });
 
 function resetOdometry() {
@@ -537,71 +511,6 @@ function moveAction(linear, angular) {
 		twist.angular.z = angular;
 	}
 	cmdVel.publish(twist);
-}
-
-function initMap() {
-	var logo = document.getElementById('auto-slide');
-	slideRect = logo.getBoundingClientRect();
-
-	viewer = new ROS2D.Viewer({
-		divID: 'map',
-		width: slideRect.right - slideRect.left,
-		height: slideRect.bottom - slideRect.top,
-		background: "#7E7E7E"
-	});
-
-	document.getElementById("map").style.width = "" + slideRect.right - slideRect.left + "px";
-	document.getElementById("map").style.height = "" + slideRect.bottom - slideRect.top + "px";
-
-
-	gridClient = new NAV2D.OccupancyGridClientNav({
-		ros: ros,
-		rootObject: viewer.scene,
-		viewer: viewer,
-		serverName: '/move_base',
-		continuous: true
-	});
-
-	gridClient.client.on('change', function () {
-		addScanMarker();
-	});
-	addScanMarker();
-	redraw_map();
-}
-
-var resize_tout;
-
-function redraw_map() {
-	var map_rect = document.getElementById('map-container');
-	mapRect = map_rect.getBoundingClientRect();
-
-	var elem = document.getElementsByTagName('CANVAS');
-	if (elem !== undefined) {
-		if (elem.length > 0) {
-			elem[0].style.width = "" + mapRect.right - mapRect.left - 30 + "px";
-			elem[0].style.height = "" + mapRect.bottom - mapRect.top - 10 + "px";
-		}
-	}
-	document.getElementById("map").style.width = "" + mapRect.right - mapRect.left - 30 + "px";
-	document.getElementById("map").style.height = "" + mapRect.bottom - mapRect.top + "px";
-}
-
-function setMapScale(scale) {
-	if (scale !== undefined) {
-		mapScale = scale;
-	}
-	resizeMap();
-}
-
-function resizeMap() {
-	if (gridClient !== undefined) {
-		if (gridClient.client.currentGrid.message !== undefined) {
-			mapSizeX = gridClient.client.currentGrid.message.info.width * mapScale / 100;
-			mapSizeY = gridClient.client.currentGrid.message.info.height * mapScale / 100;
-			viewer.scaleToDimensions(mapSizeX, mapSizeY);
-			viewer.shift(mapShiftX - (mapSizeX / 2), mapShiftY - (mapSizeY / 2));
-		}
-	}
 }
 
 function updateExplorationStatus(status_string, background_color) {

@@ -60,9 +60,9 @@ body {
   background-size:100% 100%; 
 }
 
-#map-container {
+/* #map-container {
   height: 50vh; 
-}
+} */
 
 .wifi-status {
   width: 20px;
