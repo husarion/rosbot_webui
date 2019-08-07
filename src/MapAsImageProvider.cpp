@@ -25,6 +25,7 @@ MapAsImageProvider::MapAsImageProvider(ros::NodeHandle nh, uint16_t tile_width, 
     robot_position_x = 0;
     robot_position_y = 0;
 
+    currentMap.info.resolution = 1;
     setScale(DEFAULT_MAP_SCALE);
 
     ROS_INFO("Map to Image node started.");
