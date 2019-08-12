@@ -54,6 +54,7 @@ var wifiSubscriber;
 
 var mapScalePublisher;
 var mapScaleMsg;
+var batteryText;
 
 window.onload = function () {
 	console.log("onLoad triggered");
@@ -279,6 +280,7 @@ window.onload = function () {
 		lastMsgMs = lastMsgDate.getTime();
 	});
 
+	batteryText = document.getElementById("batery-percent");
 	battery_subscriber.subscribe(function (battery) {
 		setBatteryPercentage(100 * (battery.voltage - min_voltage) / (max_voltage - min_voltage));
 		lastMsgDate = new Date();
@@ -469,6 +471,7 @@ function setView() {
 
 function setBatteryPercentage(percentage) {
 	$("#dynamic").css("width", percentage + "%").attr("aria-valuenow", percentage);
+	batteryText.innerHTML = "<strong>" + percentage + "%</strong>";
 }
 
 $(window).resize(function () {
