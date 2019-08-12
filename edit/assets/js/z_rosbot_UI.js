@@ -472,7 +472,7 @@ function setView() {
 
 function setBatteryPercentage(percentage) {
 	$("#dynamic").css("width", percentage + "%").attr("aria-valuenow", percentage);
-	batteryText.innerHTML = "<strong>" + percentage + "%</strong>";
+	batteryText.innerHTML = "<strong>" + percentage.toFixed(0) + "%</strong>";
 }
 
 $(window).resize(function () {
