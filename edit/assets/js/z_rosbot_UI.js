@@ -342,7 +342,7 @@ window.onload = function () {
 function updateClippingDistance(distance) {
 	clipping_dist.data = distance;
 	clipping_topic.publish(clipping_dist);
-	document.getElementById("current-clip-dist").innerHTML = "Depth clipping plane: " + distance.toString() + "m";
+	document.getElementById("current-clip-dist").innerHTML = "Move slider to set image clipping distance: " + distance.toString() + "m";
 }
 
 function watchdogTimer(e) {
@@ -426,9 +426,10 @@ function createJoystick(x, y, w, h) {
 		joysticksize = h;
 	}
 
+	var x_pos = joystickContainer.parentElement.parentElement.offsetWidth / 2;
 	var options = {
 		zone: joystickContainer,
-		position: { left: 150 + 'px', top: 150 + 'px' },
+		position: { left: x_pos + 'px', top: 150 + 'px' },
 		mode: 'static',
 		size: joysticksize,
 		color: '#222222',
