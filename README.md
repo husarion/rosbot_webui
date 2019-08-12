@@ -1,6 +1,6 @@
 # ROSbot_webui
 
-This repository contains interface, which enable you to use web browser to control ROSbot or other ROS comaptible device.
+This repository contains interface, which enable you to use web browser to control ROSbot or other ROS compatible device.
 
 Interface is based on [RobotWebTools project](https://github.com/RobotWebTools).
 
@@ -64,11 +64,11 @@ Restart Nginx:
 
 Nginx will start automatically at boot. You do not need to launch it again.
 
-By now you should be able to see draft of web panel in your browser. Just type IP addrees of your ROSbot in adress bar and it shoule be visible. Although you will not be able to control rosbot. It is still required to launch websocket and apropriate nodes.
+By now you should be able to see draft of web panel in your browser. Just type IP address of your ROSbot in address bar and it should be visible. Although you will not be able to control ROSbot. It is still required to launch websocket and appropriate nodes.
 
 # Usage
 
-Application subscribes some topics to obtain robot pose, battery state, image from camera and generated map, it also publishes topics with velocity commands and path planning or explortion tasks. Corresponding nodes must be launched at ROSbot to enable full functionality of UI. Example launch file with supporting scripts and configuration files is included in this repository.
+Application subscribes some topics to obtain robot pose, battery state, image from camera and generated map, it also publishes topics with velocity commands and path planning or exploration tasks. Corresponding nodes must be launched at ROSbot to enable full functionality of UI. Example launch file with supporting scripts and configuration files is included in this repository.
 
 For ROSbot 2.0 you can use:
 
