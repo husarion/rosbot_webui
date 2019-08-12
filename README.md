@@ -82,6 +82,12 @@ For ROSbot 2.0 PRO you can use:
 roslaunch rosbot_webui demo_rosbot_pro.launch
 ```
 
+If you want ot test the UI without ROSbot, it is possible to launch it with Gazebo simulator:
+
+```bash
+roslaunch rosbot_webui demo_gazebo.launch
+```
+
 Go to the web browser and type `http://device_name.local/` in adress bar, substituting phrase `device_name` with name of your ROSbot defined in Husarnet panel. Now you will be able to control ROSbot.
 
 If you do not have Husarnet configured, you can use local IP of your device.
