@@ -16,6 +16,9 @@
         <param name="tile_height" value="480"/>
         <param name="parent_frame" value="/map"/>
         <param name="child_frame" value="/base_link"/>
+        <param name="draw_robot" value="true"/>
+        <param name="publish_full_map" value="false"/>
+        <param name="publish_map_tile" value="true"/>
     </node>
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
