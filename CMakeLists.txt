@@ -28,13 +28,6 @@ target_link_libraries(tf_to_pose
   ${catkin_LIBRARIES}
 )
 
-add_executable(map_to_img_node src/map_to_img.cpp src/MapAsImageProvider.cpp)
-
-target_link_libraries(map_to_img_node
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-)
-
 install(DIRECTORY launch
 	DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
