@@ -282,7 +282,7 @@ window.onload = function () {
 
 	batteryText = document.getElementById("batery-percent");
 	battery_subscriber.subscribe(function (battery) {
-		setBatteryPercentage(100 * (battery.voltage - min_voltage) / (max_voltage - min_voltage));
+		setBatteryPercentage(100 * (battery.voltage - min_voltage) / (max_voltage - min_voltage), battery.voltage);
 		lastMsgDate = new Date();
 		lastMsgMs = lastMsgDate.getTime();
 	});
@@ -470,9 +470,14 @@ function setView() {
 	initTeleopKeyboard();
 }
 
-function setBatteryPercentage(percentage) {
+function setBatteryPercentage(percentage, voltage) {
+	if (percentage < 0) {
+		percentage = 0;
+	} else if(percentage>100){
+		percentage = 100;
+	}
 	$("#dynamic").css("width", percentage + "%").attr("aria-valuenow", percentage);
-	batteryText.innerHTML = "<strong>" + percentage.toFixed(0) + "%</strong>";
+	batteryText.innerHTML = "<strong>" + percentage.toFixed(0) + "% [" + voltage.toFixed(2) + " V]</strong>";
 }
 
 $(window).resize(function () {
