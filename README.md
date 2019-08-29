@@ -76,10 +76,22 @@ For ROSbot 2.0 you can use:
 roslaunch rosbot_webui demo.launch
 ```
 
+For ROSbot 2.0 with [Mbed firmware](https://github.com/husarion/rosbot-firmware-new):
+
+```bash
+roslaunch rosbot_webui demo_rosbot_mbed_fw.launch
+```
+
 For ROSbot 2.0 PRO you can use:
 
 ```bash
 roslaunch rosbot_webui demo_rosbot_pro.launch
+```
+
+For ROSbot 2.0 PRO with [Mbed firmware](https://github.com/husarion/rosbot-firmware-new):
+
+```bash
+roslaunch rosbot_webui demo_rosbot_pro_mbed_fw.launch
 ```
 
 If you want ot test the UI without ROSbot, it is possible to launch it with Gazebo simulator:
